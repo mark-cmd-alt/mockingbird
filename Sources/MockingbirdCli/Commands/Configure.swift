@@ -71,7 +71,7 @@ extension Mockingbird {
         // Common options that should be forwarded to the generate command.
         var forwardedOptions: [String] = []
         // Unnecessarily specifying the project path makes it brittle to refactoring.
-        if sourceProject != validProject.path {
+        if project != nil || sourceProject != validProject.path {
           forwardedOptions.append(contentsOf: ["--project", sourceProject.string])
         }
         generateCommand = try Generate.parse(generatorOptions + forwardedOptions)
@@ -96,7 +96,12 @@ extension Mockingbird {
       let parsedConfigureArguments = try infer()
       let parsedGenerateArguments = try parsedConfigureArguments.generateCommand.infer()
       
-      logInfo("🛠  Project: \(parsedConfigureArguments.project.abbreviate())")
+      if parsedConfigureArguments.sourceProject == parsedConfigureArguments.project {
+        logInfo("🛠  Project: \(parsedConfigureArguments.project.abbreviate())")
+      } else {
+        logInfo("🛠  Test Project: \(parsedConfigureArguments.project.abbreviate())")
+        logInfo("🛠  Source Project: \(parsedConfigureArguments.sourceProject.abbreviate())")
+      }
       logInfo("🎯 Test Target: \(parsedConfigureArguments.testTarget)")
       logInfo("🧰 Supporting sources: \(parsedGenerateArguments.support.abbreviate())")
       

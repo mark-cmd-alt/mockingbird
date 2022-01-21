@@ -1,16 +1,24 @@
 PODS:
-  - MockingbirdFramework (0.19.1)
+  - MockingbirdFramework (0.19.2)
+  - Nimble (9.2.1)
+  - Quick (4.0.0)
 
 DEPENDENCIES:
   - MockingbirdFramework (~> 0.19)
+  - Nimble
+  - Quick
 
 SPEC REPOS:
   trunk:
     - MockingbirdFramework
+    - Nimble
+    - Quick
 
 SPEC CHECKSUMS:
-  MockingbirdFramework: c85c2e2ec44890c5ec609a11398795cb2fe474a1
+  MockingbirdFramework: 101c2cc12a9fb0933cb0581cbe41f756c9898938
+  Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
+  Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
 
-PODFILE CHECKSUM: b671ca82bfe4d83304df291b7f0c23c6e1fb93d2
+PODFILE CHECKSUM: cabb4b6ed6f7cb005e79afab2d008d088295d181
 
 COCOAPODS: 1.11.2

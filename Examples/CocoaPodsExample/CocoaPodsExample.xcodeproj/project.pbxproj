@@ -16,6 +16,9 @@
 		2852644F27769CEA000298B3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852644E27769CEA000298B3 /* ContentView.swift */; };
 		2852645127769CEC000298B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2852645027769CEC000298B3 /* Assets.xcassets */; };
 		2852645427769CEC000298B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2852645327769CEC000298B3 /* Preview Assets.xcassets */; };
+		2886788E279B0C71004FFB3D /* Issue276.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2886788D279B0C71004FFB3D /* Issue276.swift */; };
+		28867890279B0C94004FFB3D /* Issue276Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2886788F279B0C94004FFB3D /* Issue276Tests.swift */; };
+		28867892279B1198004FFB3D /* Issue276TestsQuick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28867891279B1198004FFB3D /* Issue276TestsQuick.swift */; };
 		2F948F49E2B63DFC45AE2BFE /* Pods_CocoaPodsExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34132D90ECAACCBBD8217029 /* Pods_CocoaPodsExampleTests.framework */; };
 		C01D23DD1577F866B666F5DB /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B931A7B4B18AAC3A9A4027 /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +47,9 @@
 		2852645027769CEC000298B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2852645327769CEC000298B3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2852645927769CEC000298B3 /* CocoaPodsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2886788D279B0C71004FFB3D /* Issue276.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue276.swift; sourceTree = "<group>"; };
+		2886788F279B0C94004FFB3D /* Issue276Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue276Tests.swift; sourceTree = "<group>"; };
+		28867891279B1198004FFB3D /* Issue276TestsQuick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue276TestsQuick.swift; sourceTree = "<group>"; };
 		34132D90ECAACCBBD8217029 /* Pods_CocoaPodsExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B931A7B4B18AAC3A9A4027 /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; path = "MockingbirdMocks/CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift"; sourceTree = "<group>"; };
 		82A90B13498132DF88301F72 /* Pods-CocoaPodsExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				2803D8CC2776A08B00651C60 /* Bird.swift */,
+				2886788D279B0C71004FFB3D /* Issue276.swift */,
 				2803D8D62776A20A00651C60 /* Fruit.swift */,
 				2803D8D42776A1CB00651C60 /* Person.swift */,
 				2803D8D02776A12F00651C60 /* App */,
@@ -129,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				2803D8D22776A19100651C60 /* PersonTests.swift */,
+				2886788F279B0C94004FFB3D /* Issue276Tests.swift */,
+				28867891279B1198004FFB3D /* Issue276TestsQuick.swift */,
 			);
 			path = CocoaPodsExampleTests;
 			sourceTree = "<group>";
@@ -313,13 +322,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsExampleTests/Pods-CocoaPodsExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -352,6 +357,7 @@
 				2803D8D72776A20A00651C60 /* Fruit.swift in Sources */,
 				2803D8D52776A1CB00651C60 /* Person.swift in Sources */,
 				2852644F27769CEA000298B3 /* ContentView.swift in Sources */,
+				2886788E279B0C71004FFB3D /* Issue276.swift in Sources */,
 				2803D8CD2776A08B00651C60 /* Bird.swift in Sources */,
 				2852644D27769CEA000298B3 /* CocoaPodsExampleApp.swift in Sources */,
 			);
@@ -361,8 +367,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28867890279B0C94004FFB3D /* Issue276Tests.swift in Sources */,
 				2803D8D32776A19100651C60 /* PersonTests.swift in Sources */,
 				C01D23DD1577F866B666F5DB /* CocoaPodsExampleTests-CocoaPodsExampleMocks.generated.swift in Sources */,
+				28867892279B1198004FFB3D /* Issue276TestsQuick.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

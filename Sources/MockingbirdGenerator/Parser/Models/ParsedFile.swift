@@ -113,12 +113,18 @@ struct ImportDeclaration: Hashable {
   let moduleName: String
   let fullPath: String
   let fullDeclaration: String
+  let attributes: Set<String>
   let offset: Int64
   
-  init(moduleName: String, fullPath: String, fullDeclaration: String, offset: Int64) {
+  init(moduleName: String,
+       fullPath: String,
+       fullDeclaration: String,
+       attributes: Set<String>,
+       offset: Int64) {
     self.moduleName = moduleName
     self.fullPath = fullPath
     self.fullDeclaration = fullDeclaration
+    self.attributes = attributes
     self.offset = offset
   }
 
@@ -126,6 +132,7 @@ struct ImportDeclaration: Hashable {
     self.moduleName = moduleName
     self.fullPath = moduleName
     self.fullDeclaration = (testable ? "@testable " : "") + "import " + moduleName
+    self.attributes = testable ? ["@testable"] : []
     self.offset = 0
   }
 }

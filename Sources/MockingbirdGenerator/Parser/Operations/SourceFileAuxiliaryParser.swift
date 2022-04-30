@@ -26,9 +26,11 @@ class SourceFileAuxiliaryParser: SyntaxVisitor {
     let sourceRange = node.sourceRange(converter: converter,
                                        afterLeadingTrivia: true,
                                        afterTrailingTrivia: true)
+    let attributes = Set<String>(node.attributes?.map({ $0.withoutTrivia().description }) ?? [])
     importedPaths.insert(ImportDeclaration(moduleName: moduleName,
                                            fullPath: fullPath,
                                            fullDeclaration: fullDeclaration,
+                                           attributes: attributes,
                                            offset: Int64(sourceRange.start.offset)))
     return .skipChildren
   }

@@ -59,7 +59,10 @@ class FileGenerator {
     let explicitImports = parsedFiles
       .filter({ $0.shouldMock })
       .flatMap({ file in
-        file.importDeclarations.map({ importDeclaration -> String in
+        file.importDeclarations.compactMap({ importDeclaration -> String? in
+          guard !importDeclaration.attributes.contains("@_implementationOnly") else {
+            return nil // Don’t include private imports to simplify the test bundle dependencies.
+          }
           let compilationDirectives = file.compilationDirectives
             .filter({ $0.range.contains(importDeclaration.offset) })
           guard !compilationDirectives.isEmpty else {

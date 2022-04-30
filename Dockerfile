@@ -1,8 +1,12 @@
 FROM swift:5.5.2-centos8
-
-# Set up
 WORKDIR /mockingbird
 COPY . .
+
+# CentOS 8 EOL
+RUN sed -i 's|mirrorlist|#mirrorlist|g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
+# Set up
 RUN yum install -y zip
 RUN swift --version
 

@@ -20,6 +20,7 @@
 		284C3B4326AACD5700F076E2 /* BlockTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4226AACD5700F076E2 /* BlockTemplate.swift */; };
 		284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */; };
 		2852643F2775882B000298B3 /* SwiftFilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852643E2775882B000298B3 /* SwiftFilePath.swift */; };
+		2854552A2835ABDB00994327 /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = 285455292835ABDB00994327 /* SwiftSyntaxParser */; };
 		2855B8EF278596CF00E2ECD7 /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2855B8EE278596CF00E2ECD7 /* PathKit */; };
 		2855B8F2278596E100E2ECD7 /* MockingbirdAutomation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 286DE643277EAD380047B0F3 /* MockingbirdAutomation.framework */; };
 		28571A7C26A6548B0063AB83 /* MKBObjectInvocationHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 28571A7A26A6548B0063AB83 /* MKBObjectInvocationHandler.h */; };
@@ -1080,6 +1081,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				2854552A2835ABDB00994327 /* SwiftSyntaxParser in Frameworks */,
 				285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */,
 				288678EE279C9957004FFB3D /* Crypto in Frameworks */,
 				287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */,
@@ -2285,6 +2287,7 @@
 				287F852425194EF5007D135D /* SourceKittenFramework */,
 				287F852D25195011007D135D /* XcodeProj */,
 				288678ED279C9957004FFB3D /* Crypto */,
+				285455292835ABDB00994327 /* SwiftSyntaxParser */,
 			);
 			productName = MockingbirdGenerator;
 			productReference = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */;
@@ -2366,6 +2369,9 @@
 					};
 					"Mockingbird::MockingbirdTests" = {
 						LastSwiftMigration = 1250;
+					};
+					"Mockingbird::MockingbirdTestsHost" = {
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -3026,6 +3032,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3274,6 +3282,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3293,6 +3303,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = MockingbirdTestsHost;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
@@ -3304,6 +3315,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A595245586DD0000E80A /* MockingbirdTestsHost.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3676,7 +3689,7 @@
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.50500.0;
+				version = 0.50600.1;
 			};
 		};
 		287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
@@ -3742,6 +3755,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */;
 			productName = PathKit;
+		};
+		285455292835ABDB00994327 /* SwiftSyntaxParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxParser;
 		};
 		2855B8EE278596CF00E2ECD7 /* PathKit */ = {
 			isa = XCSwiftPackageProductDependency;

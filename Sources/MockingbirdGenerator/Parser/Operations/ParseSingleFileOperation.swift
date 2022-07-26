@@ -3,6 +3,7 @@ import MockingbirdCommon
 import PathKit
 import SourceKittenFramework
 import SwiftSyntax
+import SwiftSyntaxParser
 
 class ParseSingleFileOperation: Runnable {
   class Result {

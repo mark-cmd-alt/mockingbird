@@ -2,6 +2,7 @@ import Foundation
 import MockingbirdCommon
 import PathKit
 import SwiftSyntax
+import SwiftSyntaxParser
 
 public class FindMockedTypesOperation: Runnable {
   public class Result {

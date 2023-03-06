@@ -26,19 +26,28 @@ class AsyncClass {
   func asyncMethodVoid() async { fatalError() }
   
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-  func asyncMethod() async -> Bool  { fatalError() }
+  func asyncMethod() async -> Bool { fatalError() }
   
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-  func asyncMethod(parameter: String) async -> Int  { fatalError() }
+  func asyncMethod(parameter: String) async -> Int { fatalError() }
   
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-  func asyncThrowingMethod() async throws -> Int  { fatalError() }
+  func asyncThrowingMethod() async throws -> Int { fatalError() }
   
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-  func asyncClosureMethod(block: () async -> Bool) async  { fatalError() }
+  func asyncClosureMethod(block: () async -> Bool) async { fatalError() }
   
   @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
   func asyncClosureThrowingMethod(block: () async throws -> Bool) async throws -> Bool {
+    fatalError()
+  }
+  
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  func asyncSendableClosure(block: @Sendable () async -> Bool) async throws -> Bool {
+    fatalError()
+  }
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  func asyncSendableThrowingClosure(block: @Sendable () async throws -> Bool) async throws -> Bool {
     fatalError()
   }
   

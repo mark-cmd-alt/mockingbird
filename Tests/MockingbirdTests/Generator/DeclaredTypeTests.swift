@@ -127,6 +127,18 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
+  func testDeclaredType_parsesFunctionTypeIgnoresUnknownAttributes() {
+    let actual = DeclaredType(from: "(@foobar (Int) -> Bool) -> String")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Bool))))))) -> DeclaredType(Single(String)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
+  func testDeclaredType_parsesFunctionTypeIgnoresUnknownUnderscoredAttributes() {
+    let actual = DeclaredType(from: "(@__superPrivateAttribute (Int) -> Bool) -> String")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Bool))))))) -> DeclaredType(Single(String)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
   func testDeclaredType_parsesFunctionTypeAttributesWithoutWhitespace() {
     let actual = DeclaredType(from: "(@escaping(String)) -> Void")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@escaping DeclaredType(Single(String)))) -> DeclaredType(Single(Void)))))")

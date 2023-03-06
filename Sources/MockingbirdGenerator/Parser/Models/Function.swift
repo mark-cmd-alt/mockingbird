@@ -97,7 +97,8 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
               mutableComponent = mutableComponent.dropFirst("@autoclosure".count)
             } else if mutableComponent.hasPrefix("@") { // Unknown parameter attribute.
               logWarning("Ignoring unknown parameter attribute \(String(mutableComponent).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
-              let index = mutableComponent.firstIndex(where: { !$0.isLetter && !$0.isNumber })
+              let index = mutableComponent.dropFirst()
+                .firstIndex(where: { !$0.isLetter && !$0.isNumber && $0 != "_" })
                 ?? mutableComponent.endIndex
               mutableComponent = mutableComponent[index...]
             } else if mutableComponent == "inout" {

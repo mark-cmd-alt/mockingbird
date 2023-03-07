@@ -127,6 +127,12 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssert(actual.isFunction)
   }
   
+  func testDeclaredType_parsesFunctionSendableAttributes() {
+    let actual = DeclaredType(from: "(@Sendable () -> Void) -> Void")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(@Sendable DeclaredType(Single(Function(() -> DeclaredType(Single(Void))))))) -> DeclaredType(Single(Void)))))")
+    XCTAssert(actual.isFunction)
+  }
+  
   func testDeclaredType_parsesFunctionTypeIgnoresUnknownAttributes() {
     let actual = DeclaredType(from: "(@foobar (Int) -> Bool) -> String")
     XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(Function((Parameter(DeclaredType(Single(Function((Parameter(DeclaredType(Single(Int)))) -> DeclaredType(Single(Bool))))))) -> DeclaredType(Single(String)))))")

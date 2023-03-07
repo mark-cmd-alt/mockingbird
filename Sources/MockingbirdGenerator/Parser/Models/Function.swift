@@ -11,6 +11,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
       var components = [String]()
       if attributes.contains(.escaping) { components.append("@escaping") }
       if attributes.contains(.autoclosure) { components.append("@autoclosure") }
+      if attributes.contains(.sendable) { components.append("@Sendable") }
       if attributes.contains(.inout) { components.append("inout") }
       if attributes.contains(.variadic) {
         components.append("\(type)...")
@@ -27,6 +28,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
         var components = [String]()
         if attributes.contains(.escaping) { components.append("@escaping") }
         if attributes.contains(.autoclosure) { components.append("@autoclosure") }
+        if attributes.contains(.sendable) { components.append("@Sendable") }
         if attributes.contains(.inout) { components.append("inout") }
         if attributes.contains(.variadic) {
           components.append(String(reflecting: type) + "...")
@@ -44,6 +46,7 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
       var components = [String]()
       if attributes.contains(.escaping) { components.append("@escaping") }
       if attributes.contains(.autoclosure) { components.append("@autoclosure") }
+      if attributes.contains(.sendable) { components.append("@Sendable") }
       if attributes.contains(.inout) { components.append("inout") }
       if attributes.contains(.variadic) {
         components.append(type.serialize(with: request) + "...")
@@ -95,6 +98,9 @@ struct Function: CustomStringConvertible, CustomDebugStringConvertible, Serializ
             } else if mutableComponent.starts(with: "@autoclosure") {
               attributes.insert(.autoclosure)
               mutableComponent = mutableComponent.dropFirst("@autoclosure".count)
+            } else if mutableComponent.starts(with: "@Sendable") {
+              attributes.insert(.sendable)
+              mutableComponent = mutableComponent.dropFirst("@Sendable".count)
             } else if mutableComponent.hasPrefix("@") { // Unknown parameter attribute.
               logWarning("Ignoring unknown parameter attribute \(String(mutableComponent).singleQuoted) in function type declaration \(String(serialized).singleQuoted)")
               let index = mutableComponent.dropFirst()

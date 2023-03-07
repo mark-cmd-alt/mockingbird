@@ -39,9 +39,10 @@ extension Build {
       // Get rid of toolchain-dependent rpaths which aren't guaranteed to have a compatible version
       // of the internal SwiftSyntax parser lib.
       let developerDirectory = try XcodeSelect.printPath()
+      // Swift 5.5 is used when building with Xcode 14+
       let swiftToolchainPath = developerDirectory
         + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx"
-      try InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
+      try? InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
       // Swift 5.5 is only present in Xcode 13.2+
       let swift5_5ToolchainPath = developerDirectory
         + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.5/macosx"

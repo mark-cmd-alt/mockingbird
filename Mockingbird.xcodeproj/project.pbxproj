@@ -14,6 +14,7 @@
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
+		2823627729B6C75300F7D1BF /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */; };
 		2824DA56277E9DB8007005CD /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2824DA55277E9DB8007005CD /* PathKit */; };
 		2838FD2127756314007A1CB4 /* Path+Abbreviate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */; };
 		284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */; };
@@ -538,6 +539,7 @@
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		2820731B277E8FF800BAFB97 /* buildAndRun.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildAndRun.sh; sourceTree = "<group>"; };
+		2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		2824DA54277E9CC6007005CD /* ExecutableBase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ExecutableBase.xcconfig; sourceTree = "<group>"; };
 		2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Abbreviate.swift"; sourceTree = "<group>"; };
 		284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominalTypeDefinitionTemplate.swift; sourceTree = "<group>"; };
@@ -1063,6 +1065,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				2823627729B6C75300F7D1BF /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 				285C8E012779EB0E00DE525A /* MockingbirdCommon.framework in Frameworks */,
 				287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */,
 				28874F8B26BF12DD00097529 /* ArgumentParser in Frameworks */,
@@ -1112,6 +1115,7 @@
 			isa = PBXGroup;
 			children = (
 				285C8E91277C76DC00DE525A /* LICENSE.txt */,
+				2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */,
 				285C8E92277C76DC00DE525A /* update.sh */,
 			);
 			path = Libraries;
@@ -3004,6 +3008,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A597245586DD0000E80A /* MockingbirdCli-Profile.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Profile;
 		};
@@ -3452,6 +3460,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Debug;
 		};
@@ -3459,6 +3471,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A596245586DD0000E80A /* MockingbirdCli.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Release;
 		};

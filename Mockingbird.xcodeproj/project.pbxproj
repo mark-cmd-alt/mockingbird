@@ -3023,6 +3023,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A593245586DD0000E80A /* MockingbirdGenerator-Profile.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Profile;
 		};
@@ -3493,6 +3497,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A594245586DD0000E80A /* MockingbirdGenerator.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Debug;
 		};
@@ -3500,6 +3508,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A594245586DD0000E80A /* MockingbirdGenerator.xcconfig */;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
+				);
 			};
 			name = Release;
 		};
@@ -3701,8 +3713,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
-				branch = "swift-5.5.2-RELEASE";
-				kind = branch;
+				kind = exactVersion;
+				version = 508.0.0;
 			};
 		};
 		287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
@@ -3818,6 +3830,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 28E2A56D277E8F43002975B3 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
+		};
+		28E7F4FF2A835AA400B39556 /* SwiftSyntaxParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

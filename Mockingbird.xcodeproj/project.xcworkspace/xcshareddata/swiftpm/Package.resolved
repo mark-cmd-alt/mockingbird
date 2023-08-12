@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "branch" : "swift-5.5.2-RELEASE",
-        "revision" : "2ca29758ed04c0a209221db59f922d4faf539f03"
+        "revision" : "cd793adf5680e138bf2bcbaacc292490175d0dcd",
+        "version" : "508.0.0"
       }
     },
     {
@@ -95,7 +95,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/weichsel/ZIPFoundation.git",
       "state" : {
-        "revision" : "7254c74b49cec2cb81520523ba993c671f71b066",
+        "revision" : "1b662e2e7a091710ad8a963263939984e2ebf527",
         "version" : "0.9.14"
       }
     }

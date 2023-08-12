@@ -14,7 +14,7 @@ struct Method {
   let whereClauses: [WhereClause]
   let parameters: [MethodParameter]
   let attributes: Attributes
-  let compilationDirectives: [CompilationDirective]
+  let conditionalCompilationBlock: [ConditionalCompilationBlock]
   let isOverridable: Bool
   let hasSelfConstraint: Bool
   let isMockable: Bool
@@ -107,11 +107,11 @@ struct Method {
     
     // Parse any containing preprocessor macros.
     if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
-      self.compilationDirectives = rawType.parsedFile.compilationDirectives.filter({
+      self.conditionalCompilationBlock = rawType.parsedFile.conditionalCompilationBlocks.filter({
         $0.range.contains(offset)
       })
     } else {
-      self.compilationDirectives = []
+      self.conditionalCompilationBlock = []
     }
     
     // Check whether this method has any `Self` type constraints.
@@ -345,7 +345,7 @@ extension Method: Specializable {
     self.whereClauses = method.whereClauses
     self.parameters = parameters
     self.attributes = method.attributes
-    self.compilationDirectives = method.compilationDirectives
+    self.conditionalCompilationBlock = method.conditionalCompilationBlock
     self.isOverridable = method.isOverridable
     self.hasSelfConstraint = method.hasSelfConstraint
     self.isMockable = method.isMockable

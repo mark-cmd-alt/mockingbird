@@ -25,7 +25,7 @@ class MockableType: Hashable, Comparable {
   let whereClauses: Set<WhereClause>
   let shouldMock: Bool
   let attributes: Attributes
-  var compilationDirectives: [CompilationDirective]
+  var conditionalCompilationBlocks: [ConditionalCompilationBlock]
   var containedTypes = [MockableType]()
   let isContainedType: Bool
   let isInGenericContainingType: Bool
@@ -239,11 +239,11 @@ class MockableType: Hashable, Comparable {
     
     // Parse any containing preprocessor macros.
     if let offset = baseRawType.dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
-      self.compilationDirectives = baseRawType.parsedFile.compilationDirectives.filter({
+      self.conditionalCompilationBlocks = baseRawType.parsedFile.conditionalCompilationBlocks.filter({
         $0.range.contains(offset)
       })
     } else {
-      self.compilationDirectives = []
+      self.conditionalCompilationBlocks = []
     }
     
     // Check if any of the members have `Self` constraints.

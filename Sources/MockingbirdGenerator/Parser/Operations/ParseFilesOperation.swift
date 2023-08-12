@@ -1,7 +1,6 @@
 import Foundation
 import PathKit
 import SourceKittenFramework
-import SwiftSyntax
 
 public class ParseFilesOperation: Runnable {
   let extractSourcesResult: ExtractSourcesOperationResult

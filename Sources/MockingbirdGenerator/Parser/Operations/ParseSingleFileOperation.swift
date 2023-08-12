@@ -2,7 +2,6 @@ import Foundation
 import MockingbirdCommon
 import PathKit
 import SourceKittenFramework
-import SwiftSyntax
 
 class ParseSingleFileOperation: Runnable {
   class Result {
@@ -44,15 +43,17 @@ class ParseSingleFileOperation: Runnable {
                                 path: sourcePath.path,
                                 moduleName: sourcePath.moduleName,
                                 importDeclarations: swiftSyntaxResult.importDeclarations,
-                                compilationDirectives: swiftSyntaxResult.compilationDirectives,
+                                conditionalCompilationBlocks: swiftSyntaxResult.conditionalCompilationBlocks,
                                 structure: structure,
                                 shouldMock: shouldMock)
     ParseSingleFileOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
     result.parsedFile = parsedFile
     
     let totalImportDeclarations = swiftSyntaxResult.importDeclarations.count
-    let totalCompilationDirectives = swiftSyntaxResult.compilationDirectives.count
-    log("Parsed \(totalImportDeclarations) import declaration\(totalImportDeclarations != 1 ? "s" : "") and \(totalCompilationDirectives) compiler directive\(totalCompilationDirectives != 1 ? "s" : "") in source file at \(sourcePath.path)")
+    let totalConditionalCompilationBlocks = swiftSyntaxResult.conditionalCompilationBlocks.count
+    log("Parsed \(totalImportDeclarations) import declaration\(totalImportDeclarations != 1 ? "s" : "") and " +
+        "\(totalConditionalCompilationBlocks) compiler directive\(totalConditionalCompilationBlocks != 1 ? "s" : "") " +
+        "in source file at \(sourcePath.path)")
     if shouldMock {
       log("Parsed source structure for module \(sourcePath.moduleName.singleQuoted) at \(sourcePath.path)")
     } else {
@@ -68,7 +69,7 @@ class ParseSourceKitOperation: Runnable {
   }
   
   let result = Result()
-  var description: String { "Parse SourceKit" }
+  var description: String { "Parse SourceKit \(sourcePath.path)" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
@@ -85,11 +86,11 @@ class ParseSourceKitOperation: Runnable {
 class ParseSwiftSyntaxOperation: Runnable {
   class Result {
     fileprivate(set) var importDeclarations = Set<ImportDeclaration>()
-    fileprivate(set) var compilationDirectives = [CompilationDirective]()
+    fileprivate(set) var conditionalCompilationBlocks = [ConditionalCompilationBlock]()
   }
   
   let result = Result()
-  var description: String { "Parse SwiftSyntax" }
+  var description: String { "Parse SwiftSyntax \(sourcePath.path)" }
   let sourcePath: SourcePath
   
   init(sourcePath: SourcePath) {
@@ -99,15 +100,63 @@ class ParseSwiftSyntaxOperation: Runnable {
   func run(context: RunnableContext) throws {
     // File reading is not shared with the parse SourceKit operation, but parsing >> reading.
     let file = try sourcePath.path.getFile()
-    let sourceFile = try SyntaxParser.parse(source: file.contents)
-    let parser = SourceFileAuxiliaryParser(with: {
-      SourceLocationConverter(file: "\(self.sourcePath.path)", tree: sourceFile)
-    }).parse(sourceFile)
-    retainForever(parser)
+    
+    // TODO: Handle comment blocks
+    var consumed = 0
+    var pendingConditionalCompilationBlock: ConditionalCompilationBlock?
+    
+    for line in file.contents.substringComponents(separatedBy: "\n") {
+      defer { consumed += line.count + 1 }
+      let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+      
+      // Handle imports.
+      let importMatches = trimmedLine.components(matching: #"""
+      ^((@\S+ )*)import ?(typealias|struct|class|enum|protocol|let|var|func)? ([a-zA-Z0-9_\.]+)
+      """#)
+      if let importMatch = importMatches.first, importMatch.count == 5,
+         let fullDeclaration = importMatch[0],
+         let rawAttributes = importMatch[1],
+         let fullPath = importMatch[4] {
+        let attributes = rawAttributes.split(separator: " ").filter({ !$0.isEmpty }).map({ String($0) })
+        let moduleName = fullPath.split(separator: ".").last ?? ""
+        result.importDeclarations.insert(ImportDeclaration(moduleName: String(moduleName),
+                                                           fullPath: String(fullPath),
+                                                           fullDeclaration: String(fullDeclaration),
+                                                           attributes: Set(attributes),
+                                                           offset: Int64(consumed)))
+        continue
+      }
+      
+      // Handle compilation directives.
+      let conditionalCompilationBlockMatches = trimmedLine.components(matching: #"^#(if|elseif|else|endif) ?([^\/]+)?"#)
+      if let conditionalCompilationBlockMatch = conditionalCompilationBlockMatches.first,
+         conditionalCompilationBlockMatch.count == 3,
+         let rawDirective = conditionalCompilationBlockMatch[1] {
+        let condition = conditionalCompilationBlockMatch[2]
+        guard let directive = ConditionalCompilationBlock.Directive(rawValue: String(rawDirective)) else { continue }
+        if let pendingBlock = pendingConditionalCompilationBlock?.extendedRange(to: Int64(consumed)){
+          result.conditionalCompilationBlocks.append(pendingBlock)
+          pendingConditionalCompilationBlock = nil
+        }
+        pendingConditionalCompilationBlock = ConditionalCompilationBlock(
+          directive: directive,
+          condition: condition,
+          range: Int64(consumed)..<Int64(consumed + 1), // Temporary range until committed.
+          preceedingBlocks: result.conditionalCompilationBlocks)
+        continue
+      }
+    }
     
     // All Swift files implicitly import the Swift standard library.
-    result.importDeclarations = parser.importedPaths.union([ImportDeclaration("Swift")])
-    result.compilationDirectives = parser.directives.sorted()
+    result.importDeclarations.insert(ImportDeclaration("Swift"))
+    
+    // Only include acutal blocks.
+    result.conditionalCompilationBlocks = result.conditionalCompilationBlocks.filter({ block in
+      switch block.directive {
+      case .if, .elseif, .else: return true
+      case .endif: return false
+      }
+    })
   }
 }
 

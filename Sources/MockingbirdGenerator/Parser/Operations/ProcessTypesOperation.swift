@@ -30,46 +30,50 @@ public class ProcessTypesOperation: Runnable {
   public func run(context: RunnableContext) {
     guard checkCacheResult?.isCached != true else { return }
     time(.processTypes) {
-      let processStructuresOperations = parseFilesResult.parsedFiles
-        .map({ parsedFile -> ProcessStructuresOperation in
-          let structureDictionary = parsedFile.structure.dictionary
-          let operation = ProcessStructuresOperation(structureDictionary: structureDictionary,
-                                                     parsedFile: parsedFile)
-          retainForever(operation)
-          return operation
-        })
-      context.registerChildren(processStructuresOperations)
-      context.runAndWait(for: processStructuresOperations)
-      processStructuresOperations.forEach({
-        $0.result.rawTypes.forEach({
-          rawTypeRepository.addRawType($0)
-          if let typeAlias = Typealias(from: $0) { typealiasRepository.addTypealias(typeAlias) }
-        })
-      })
-      
-      let flattenInheritanceOperations = rawTypeRepository.rawTypes
-        .flatMap({ $0.value })
-        .map({ $0.value })
-        .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
-        .filter({ $0.first?.isContainedType != true })
-        .map({ rawType -> FlattenInheritanceOperation in
-          let operation = FlattenInheritanceOperation(
-            rawType: rawType,
-            moduleDependencies: parseFilesResult.moduleDependencies,
-            rawTypeRepository: rawTypeRepository,
-            typealiasRepository: typealiasRepository,
-            useRelaxedLinking: useRelaxedLinking
-          )
-          retainForever(operation)
-          return operation
-        })
-      context.registerChildren(flattenInheritanceOperations)
-      context.runAndWait(for: flattenInheritanceOperations)
-      result.mockableTypes = flattenInheritanceOperations
-        .compactMap({ $0.result.mockableType })
-        .filter({ !$0.isContainedType })
-      result.parsedFiles = parseFilesResult.parsedFiles
-      log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")
+      _run(in: context)
     }
+  }
+  
+  private func _run(in context: RunnableContext) { // @nocommit
+    let processStructuresOperations = parseFilesResult.parsedFiles
+      .map({ parsedFile -> ProcessStructuresOperation in
+        let structureDictionary = parsedFile.structure.dictionary
+        let operation = ProcessStructuresOperation(structureDictionary: structureDictionary,
+                                                   parsedFile: parsedFile)
+        retainForever(operation)
+        return operation
+      })
+    context.registerChildren(processStructuresOperations)
+    context.runAndWait(for: processStructuresOperations)
+    processStructuresOperations.forEach({
+      $0.result.rawTypes.forEach({
+        rawTypeRepository.addRawType($0)
+        if let typeAlias = Typealias(from: $0) { typealiasRepository.addTypealias(typeAlias) }
+      })
+    })
+    
+    let flattenInheritanceOperations = rawTypeRepository.rawTypes
+      .flatMap({ $0.value })
+      .map({ $0.value })
+      .filter({ $0.first(where: { $0.kind.isMockable })?.parsedFile.shouldMock == true })
+      .filter({ $0.first?.isContainedType != true })
+      .map({ rawType -> FlattenInheritanceOperation in
+        let operation = FlattenInheritanceOperation(
+          rawType: rawType,
+          moduleDependencies: parseFilesResult.moduleDependencies,
+          rawTypeRepository: rawTypeRepository,
+          typealiasRepository: typealiasRepository,
+          useRelaxedLinking: useRelaxedLinking
+        )
+        retainForever(operation)
+        return operation
+      })
+    context.registerChildren(flattenInheritanceOperations)
+    context.runAndWait(for: flattenInheritanceOperations)
+    result.mockableTypes = flattenInheritanceOperations
+      .compactMap({ $0.result.mockableType })
+      .filter({ !$0.isContainedType })
+    result.parsedFiles = parseFilesResult.parsedFiles
+    log("Created \(result.mockableTypes.count) mockable type\(result.mockableTypes.count != 1 ? "s" : "")")
   }
 }

@@ -1,7 +1,6 @@
 import Foundation
 import PathKit
 import SourceKittenFramework
-import SwiftSyntax
 
 struct ParsedFile {
   let file: File
@@ -9,7 +8,7 @@ struct ParsedFile {
   let path: Path
   let moduleName: String
   let importDeclarations: Set<ImportDeclaration>
-  let compilationDirectives: [CompilationDirective]
+  let conditionalCompilationBlocks: [ConditionalCompilationBlock]
   let structure: Structure
   let shouldMock: Bool
   
@@ -24,7 +23,7 @@ struct ParsedFile {
        path: Path,
        moduleName: String,
        importDeclarations: Set<ImportDeclaration>,
-       compilationDirectives: [CompilationDirective],
+       conditionalCompilationBlocks: [ConditionalCompilationBlock],
        structure: Structure,
        shouldMock: Bool) {
     self.file = file
@@ -32,7 +31,7 @@ struct ParsedFile {
     self.path = path
     self.moduleName = moduleName
     self.importDeclarations = importDeclarations
-    self.compilationDirectives = compilationDirectives
+    self.conditionalCompilationBlocks = conditionalCompilationBlocks
     self.structure = structure
     self.shouldMock = shouldMock
   }
@@ -42,70 +41,92 @@ struct ParsedFile {
               path: other.path,
               moduleName: other.moduleName,
               importDeclarations: other.importDeclarations,
-              compilationDirectives: other.compilationDirectives,
+              conditionalCompilationBlocks: other.conditionalCompilationBlocks,
               structure: other.structure,
               shouldMock: shouldMock)
   }
 }
 
-struct CompilationDirective: Comparable, Hashable {
+struct ConditionalCompilationBlock: Comparable, Hashable {
+  let directive: Directive
+  let condition: Substring?
   let range: Range<Int64> // Byte offset bounds of the compilation directive declaration.
-  let declaration: String
-  let condition: String?
+  let standaloneCondition: String
+
+  var declaration: String { "#\(Directive.if.rawValue) \(standaloneCondition)" }
   
-  var negatedCondition: String? {
-    guard let condition = self.condition else { return nil }
-    return "!(\(condition))"
+  enum Directive: String {
+    case `if`
+    case `elseif`
+    case `else`
+    case `endif`
   }
   
-  enum PoundKeyword: String {
-    case `if` = "#if"
-    case `elseif` = "#elseif"
-    case `else` = "#else"
-    case `warning` = "#warning"
-    case `error` = "#error"
-    
-    var isLogical: Bool {
-      switch self {
-      case .if, .elseif, .else: return true
-      case .warning, .error: return false
+  init(directive: Directive,
+       condition: Substring?,
+       range: Range<Int64>,
+       preceedingBlocks: [ConditionalCompilationBlock]) {
+    self.directive = directive
+    self.condition = condition
+    self.range = range
+    self.standaloneCondition = Self.generateStandaloneCondition(directive: directive,
+                                                                condition: condition,
+                                                                preceedingBlocks: preceedingBlocks)
+  }
+  
+  private init(directive: Directive, condition: Substring?, range: Range<Int64>, standaloneCondition: String) {
+    self.directive = directive
+    self.condition = condition
+    self.range = range
+    self.standaloneCondition = standaloneCondition
+  }
+  
+  static func generateStandaloneCondition(directive: Directive,
+                                          condition: Substring?,
+                                          preceedingBlocks: [ConditionalCompilationBlock]) -> String {
+    var shouldNegate = directive != .if // Only negate conditions from blocks in the same group.
+    var blockLevel = 0
+    var conditionChain: [String] = []
+    if let condition = condition {
+      conditionChain.append(String(condition))
+    }
+    for i in stride(from: preceedingBlocks.count - 1, to: -1, by: -1) {
+      let block = preceedingBlocks[i]
+      switch (block.directive, shouldNegate) {
+      case (.if, true):
+        shouldNegate = false
+        fallthrough
+      case (.elseif, true),
+           (.else, true),
+           (.endif, true):
+        if let condition = block.condition {
+          conditionChain.append("!(\(condition))")
+        }
+
+      case (.if, false):
+        if blockLevel == 0, let condition = block.condition {
+          conditionChain.append(String(condition))
+        }
+        blockLevel = max(0, blockLevel - 1)
+      case (.endif, false):
+        blockLevel += 1
+      case (.elseif, false),
+           (.else, false):
+        break
       }
     }
+    return conditionChain.joined(separator: " && ")
+  }
+
+  func extendedRange(to endIndex: Int64) -> Self {
+    .init(directive: directive,
+          condition: condition,
+          range: range.startIndex..<endIndex,
+          standaloneCondition: standaloneCondition)
   }
   
-  init?(from clause: IfConfigClauseSyntax,
-        priorDirectives: [CompilationDirective],
-        converter: SourceLocationConverter) {
-    guard PoundKeyword(rawValue: clause.poundKeyword.withoutTrivia().text)?.isLogical == true
-      else { return nil }
-    
-    self.condition = clause.condition?
-      .withoutTrivia()
-      .description
-      .trimmingCharacters(in: .whitespacesAndNewlines)
-    
-    let sourceRange = clause.sourceRange(converter: converter,
-                                         afterLeadingTrivia: true,
-                                         afterTrailingTrivia: true)
-    let directiveRange = Int64(sourceRange.start.offset)..<Int64(sourceRange.end.offset)
-    
-    // Account for compilation directives that are not the first clause, e.g. `#elseif` by chaining
-    // the condition with previous ones logically.
-    var allConditions = priorDirectives.compactMap({ $0.negatedCondition })
-    if let condition = self.condition { allConditions.append(condition) }
-    let conditionChain = allConditions.joined(separator: " && ")
-    
-    self.range = directiveRange
-    self.declaration = PoundKeyword.if.rawValue + " " + conditionChain
-  }
-  
-  static func < (lhs: CompilationDirective, rhs: CompilationDirective) -> Bool {
+  static func < (lhs: ConditionalCompilationBlock, rhs: ConditionalCompilationBlock) -> Bool {
     return lhs.range.lowerBound < rhs.range.lowerBound
-  }
-  
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(declaration)
-    hasher.combine(condition)
   }
 }
 

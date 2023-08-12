@@ -19,9 +19,9 @@ struct StackTrace {
     return callStackSymbols.compactMap({ frame -> Frame? in
       guard
         let components = frame.components(matching: regexPattern).first, components.count == 4,
-        let location = components.get(1),
-        let frameAddress = components.get(2),
-        let mangledSymbol = components.get(3)
+        let location = components[1],
+        let frameAddress = components[2],
+        let mangledSymbol = components[3]
       else { return nil }
       
       let demangledSymbol: String

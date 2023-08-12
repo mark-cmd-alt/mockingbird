@@ -12,16 +12,16 @@ class VariableTemplate: Template {
   }
   
   func render() -> String {
-    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
-    return String(lines: [directiveStart,
+    let (blockStart, blockEnd) = conditionalCompilationBlock
+    return String(lines: [blockStart,
                           String(lines: [mockedDeclaration, synthesizedDeclarations], spacing: 2),
-                          directiveEnd])
+                          blockEnd])
   }
   
-  var compilationDirectiveDeclaration: (start: String, end: String) {
-    guard !variable.compilationDirectives.isEmpty else { return ("", "") }
-    let start = String(lines: variable.compilationDirectives.map({ $0.declaration }))
-    let end = String(lines: variable.compilationDirectives.map({ _ in "#endif" }))
+  var conditionalCompilationBlock: (start: String, end: String) {
+    guard !variable.conditionalCompilationBlocks.isEmpty else { return ("", "") }
+    let start = String(lines: variable.conditionalCompilationBlocks.map({ $0.declaration }))
+    let end = String(lines: variable.conditionalCompilationBlocks.map({ _ in "#endif" }))
     return (start, end)
   }
   

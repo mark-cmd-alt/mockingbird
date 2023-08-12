@@ -64,24 +64,24 @@ class MockableTypeTemplate: Template {
   }
   
   func render() -> String {
-    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    let (blockStart, blockEnd) = conditionalCompilationBlock
     return String(lines: [
       "// MARK: - Mocked \(mockableType.name)",
-      directiveStart,
+      blockStart,
       NominalTypeDefinitionTemplate(
         declaration: "public final class \(mockableType.name)Mock",
         genericTypes: genericTypes,
         genericConstraints: mockableType.whereClauses.sorted().map({ specializeTypeName("\($0)") }),
         inheritedTypes: (isAvailable ? inheritedTypes : []) + [Constants.mockProtocolName],
         body: renderBody()).render(),
-      directiveEnd,
+      blockEnd,
     ])
   }
   
-  lazy var compilationDirectiveDeclaration: (start: String, end: String) = {
-    guard !mockableType.compilationDirectives.isEmpty else { return ("", "") }
-    let start = String(lines: mockableType.compilationDirectives.map({ $0.declaration }))
-    let end = String(lines: mockableType.compilationDirectives.map({ _ in "#endif" }))
+  lazy var conditionalCompilationBlock: (start: String, end: String) = {
+    guard !mockableType.conditionalCompilationBlocks.isEmpty else { return ("", "") }
+    let start = String(lines: mockableType.conditionalCompilationBlocks.map({ $0.declaration }))
+    let end = String(lines: mockableType.conditionalCompilationBlocks.map({ _ in "#endif" }))
     return (start, end)
   }()
   

@@ -8,7 +8,7 @@ struct Variable: Hashable, Comparable {
   let accessLevel: AccessLevel
   let setterAccessLevel: AccessLevel
   let attributes: Attributes
-  let compilationDirectives: [CompilationDirective]
+  let conditionalCompilationBlocks: [ConditionalCompilationBlock]
   let isOverridable: Bool
   let hasSelfConstraint: Bool
   
@@ -116,11 +116,11 @@ struct Variable: Hashable, Comparable {
     
     // Parse any containing preprocessor macros.
     if let offset = dictionary[SwiftDocKey.offset.rawValue] as? Int64 {
-      self.compilationDirectives = rawType.parsedFile.compilationDirectives.filter({
+      self.conditionalCompilationBlocks = rawType.parsedFile.conditionalCompilationBlocks.filter({
         $0.range.contains(offset)
       })
     } else {
-      self.compilationDirectives = []
+      self.conditionalCompilationBlocks = []
     }
   }
   
@@ -155,7 +155,7 @@ extension Variable: Specializable {
     self.accessLevel = variable.accessLevel
     self.setterAccessLevel = variable.setterAccessLevel
     self.attributes = variable.attributes
-    self.compilationDirectives = variable.compilationDirectives
+    self.conditionalCompilationBlocks = variable.conditionalCompilationBlocks
     self.isOverridable = variable.isOverridable
     self.hasSelfConstraint = variable.hasSelfConstraint
     self.rawType = variable.rawType

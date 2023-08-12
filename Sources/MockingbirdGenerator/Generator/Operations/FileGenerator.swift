@@ -63,13 +63,13 @@ class FileGenerator {
           guard !importDeclaration.attributes.contains("@_implementationOnly") else {
             return nil // Don’t include private imports to simplify the test bundle dependencies.
           }
-          let compilationDirectives = file.compilationDirectives
+          let conditionalCompilationBlocks = file.conditionalCompilationBlocks
             .filter({ $0.range.contains(importDeclaration.offset) })
-          guard !compilationDirectives.isEmpty else {
+          guard !conditionalCompilationBlocks.isEmpty else {
             return importDeclaration.fullDeclaration
           }
-          let start = String(lines: compilationDirectives.map({ $0.declaration }))
-          let end = String(lines: compilationDirectives.map({ _ in "#endif" }))
+          let start = String(lines: conditionalCompilationBlocks.map({ $0.declaration }))
+          let end = String(lines: conditionalCompilationBlocks.map({ _ in "#endif" }))
           return String(lines: [
             start,
             importDeclaration.fullDeclaration,

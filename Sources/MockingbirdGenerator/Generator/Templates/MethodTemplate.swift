@@ -13,11 +13,11 @@ class MethodTemplate: Template {
   }
   
   func render() -> String {
-    let (directiveStart, directiveEnd) = compilationDirectiveDeclaration
+    let (blockStart, blockEnd) = conditionalCompilationBlock
     return String(lines: [
-      directiveStart,
+      blockStart,
       String(lines: [mockedDeclarations, synthesizedDeclarations], spacing: 2),
-      directiveEnd
+      blockEnd
     ])
   }
   
@@ -36,10 +36,10 @@ class MethodTemplate: Template {
     ]
   }
   
-  var compilationDirectiveDeclaration: (start: String, end: String) {
-    guard !method.compilationDirectives.isEmpty else { return ("", "") }
-    let start = String(lines: method.compilationDirectives.map({ $0.declaration }))
-    let end = String(lines: method.compilationDirectives.map({ _ in "#endif" }))
+  var conditionalCompilationBlock: (start: String, end: String) {
+    guard !method.conditionalCompilationBlock.isEmpty else { return ("", "") }
+    let start = String(lines: method.conditionalCompilationBlock.map({ $0.declaration }))
+    let end = String(lines: method.conditionalCompilationBlock.map({ _ in "#endif" }))
     return (start, end)
   }
   

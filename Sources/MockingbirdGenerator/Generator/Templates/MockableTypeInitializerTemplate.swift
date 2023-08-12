@@ -24,7 +24,7 @@ struct MockableTypeInitializerTemplate: Template {
         return initializerTemplate.render()
       })
     let allInitializers = String(lines: initializers, spacing: 2)
-    let (directiveStart, directiveEnd) = mockableTypeTemplate.compilationDirectiveDeclaration
+    let (directiveStart, directiveEnd) = mockableTypeTemplate.conditionalCompilationBlock
     guard !directiveStart.isEmpty else { return allInitializers }
     return String(lines: [directiveStart, allInitializers, directiveEnd])
   }

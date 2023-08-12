@@ -162,7 +162,7 @@ struct Installer {
       return nil
     }
     
-    let derivedData = Path(String(component[1]))
+    let derivedData = Path(String(component[1]!))
     log("Resolved the derived data directory to \(derivedData.abbreviate())")
     return derivedData
   }

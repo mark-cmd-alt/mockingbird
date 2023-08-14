@@ -33,28 +33,6 @@ extension Build {
                                        plist: Path("./Sources/MockingbirdCli/Info.plist"))
     }
     
-    func fixupRpaths(_ binary: Path) throws {
-      let version = try getVersionString()
-      
-      // Get rid of toolchain-dependent rpaths which aren't guaranteed to have a compatible version
-      // of the internal SwiftSyntax parser lib.
-      let developerDirectory = try XcodeSelect.printPath()
-      // Swift 5.5 is used when building with Xcode 14+
-      let swiftToolchainPath = developerDirectory
-        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx"
-      try? InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
-      // Swift 5.5 is only present in Xcode 13.2+
-      let swift5_5ToolchainPath = developerDirectory
-        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.5/macosx"
-      try? InstallNameTool.deleteRpath(swift5_5ToolchainPath.absolute().string, binary: binary)
-      
-      // Add new rpaths in descending order of precedence.
-      try InstallNameTool.addRpath("/usr/lib/mockingbird/\(version)", binary: binary)
-      // Support environments with restricted write permissions to system resources.
-      try InstallNameTool.addRpath("/var/tmp/lib/mockingbird/\(version)", binary: binary)
-      try InstallNameTool.addRpath("/tmp/lib/mockingbird/\(version)", binary: binary)
-    }
-    
     private func codesign(_ binary: Path) throws {
       guard let identity = signingIdentity else { return }
       try Codesign.sign(binary: binary, identity: identity)
@@ -63,10 +41,7 @@ extension Build {
     
     private func archiveMacOS(_ binary: Path) throws {
       guard let location = globalOptions.archiveLocation else { return }
-      let libRoot = Path("./Sources/MockingbirdCli/Resources/Libraries")
-      let libPaths = libRoot.glob("*.dylib") + [libRoot + "LICENSE.txt"]
-      try archive(artifacts: [("", binary)] + libPaths.map({ ("Libraries", $0) }),
-                  destination: Path(location))
+      try archive(artifacts: [("", binary)], destination: Path(location))
     }
     
     private func archiveCentOS8(_ binary: Path) throws {
@@ -85,7 +60,6 @@ extension Build {
       
       switch platform {
       case .macOS:
-        try fixupRpaths(cliPath)
         try codesign(cliPath)
         try archiveMacOS(cliPath)
       case .centOS8:
@@ -102,7 +76,6 @@ private enum SharedLibraries {
     "/usr/lib/swift/linux/libFoundation.so",
     "/usr/lib/swift/linux/libFoundationNetworking.so",
     "/usr/lib/swift/linux/libFoundationXML.so",
-    "/usr/lib/swift/linux/lib_InternalSwiftSyntaxParser.so",
     "/usr/lib/swift/linux/libdispatch.so",
     "/usr/lib/swift/linux/libicudataswift.so.65",
     "/usr/lib/swift/linux/libicui18nswift.so.65",

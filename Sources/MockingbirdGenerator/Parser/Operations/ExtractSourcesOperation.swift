@@ -25,9 +25,8 @@ public struct ExtractSourcesOptions: OptionSet {
   }
   
   public static let dependencyPaths = ExtractSourcesOptions(rawValue: 1 << 1)
-  public static let useMockingbirdIgnore = ExtractSourcesOptions(rawValue: 1 << 2)
   
-  public static let all: ExtractSourcesOptions = [.dependencyPaths, .useMockingbirdIgnore]
+  public static let all: ExtractSourcesOptions = [.dependencyPaths]
 }
 
 /// Given a target, find all related source files including those compiled by dependencies.
@@ -87,10 +86,10 @@ public class ExtractSourcesOperation<T: Target>: ExtractSourcesAbstractOperation
       .filter({ !$0.string.hasSuffix(".generated.swift") })
       .map({ SourcePath(path: $0, moduleName: moduleName) })
     
-    print("Getting source file paths for target \(target.name)")
-    let includedPaths = includedSourcePaths(for: Set(paths))
+    let includedPaths = Set(paths)
     memoizedSourceFilePaths[target.name] = includedPaths
-    
+    log("Got \(includedPaths.count) source file path\(includedPaths.count == 1 ? "" : "s") for " +
+        "target \(target.name)")
     return includedPaths
   }
   
@@ -136,133 +135,11 @@ public class ExtractSourcesOperation<T: Target>: ExtractSourcesAbstractOperation
     }))
   }
   
-  /// Only returns non-ignored source file paths based on `.mockingbird-ignore` glob declarations.
-  private func includedSourcePaths(for sourcePaths: Set<SourcePath>) -> Set<SourcePath> {
-    guard options.contains(.useMockingbirdIgnore) else { return sourcePaths }
-    let operations = sourcePaths.map({
-      retainForever(GlobSearchOperation(sourcePath: $0, sourceRoot: sourceRoot))
-    })
-    context?.registerChildren(operations)
-    context?.runAndWait(for: operations)
-    return Set(operations.compactMap({ $0.result.sourcePath }))
-  }
-  
   private var memoizedProductModuleNames = [String: String]()
   private func resolveProductModuleName(for target: T) -> String {
     if let memoized = memoizedProductModuleNames[target.name] { return memoized }
     let productModuleName = target.resolveProductModuleName(environment: environment)
     memoizedProductModuleNames[target.name] = productModuleName
     return productModuleName
-  }
-}
-
-/// Finds whether a given source path is ignored by a `.mockingbird-ignore` file.
-private class GlobSearchOperation: Runnable {
-  class Result {
-    fileprivate(set) var sourcePath: SourcePath?
-  }
-  let result = Result()
-  
-  let sourcePath: SourcePath
-  let sourceRoot: Path
-  init(sourcePath: SourcePath, sourceRoot: Path) {
-    self.sourcePath = sourcePath
-    self.sourceRoot = sourceRoot
-  }
-  
-  private enum Constants {
-    static let mockingbirdIgnoreFileName = ".mockingbird-ignore"
-    static let commentPrefix = "#"
-    static let negationPrefix = "!"
-    static let escapingToken = "\\"
-  }
-  
-  var description: String { "Glob Search" }
-  
-  public func run(context: RunnableContext) throws {
-    guard shouldInclude(sourcePath: sourcePath.path.absolute(), in: sourcePath.path.parent()).value else {
-      log("Ignoring source path at \(sourcePath.path.absolute())")
-      return
-    }
-    result.sourcePath = sourcePath
-  }
-  
-  struct Glob {
-    let pattern: String
-    let isNegated: Bool
-    let root: Path
-  }
-  
-  /// Recursively checks the source path against any `.mockingbird-ignore` files in the current
-  /// directory and traversed subdirectories, working from the source path up to the SRCROOT.
-  private func shouldInclude(sourcePath: Path, in directory: Path) -> (value: Bool, globs: [Glob]) {
-    guard directory.isDirectory else { return (true, []) }
-    let matches: (Bool, [Glob]) -> Bool = { (inheritedState, globs) in
-      return globs.reduce(into: inheritedState) { (result, glob) in
-        let trailingSlash = glob.pattern.hasPrefix("/") ? "" : "/"
-        let pattern = "\(glob.root.absolute())" + trailingSlash + glob.pattern
-        let matches = directory.matches(pattern: pattern, isDirectory: true)
-          || sourcePath.matches(pattern: pattern, isDirectory: false)
-        
-        if glob.isNegated { // Inclusion
-          result = result || matches
-        } else { // Exclusion
-          result = result && !matches
-        }
-      }
-    }
-    
-    // Recursively find globs if this source is within the project SRCROOT.
-    guard "\(directory.absolute())".hasPrefix("\(sourceRoot.absolute())") else { return (true, []) }
-    let (parentShouldInclude, parentGlobs) = shouldInclude(sourcePath: sourcePath,
-                                                           in: directory.parent())
-    // Handle non-relative patterns (which can match at any level below the defining ignore level)
-    // by cumulatively shifting the root to the current directory. This treats each subsequent
-    // directory like it has an ignore file with all of the patterns from its parents.
-    let allParentGlobs = parentGlobs + parentGlobs
-      .filter({ glob in // Only non-relative patterns (no leading slash, single path component).
-        guard !glob.pattern.hasPrefix("/") else { return false }
-        return Path(glob.pattern).components.count == 1
-      })
-      .map({
-        Glob(pattern: $0.pattern, isNegated: $0.isNegated, root: directory)
-      })
-
-    // Read in the `.mockingbird-ignore` file contents and find glob declarations.
-    let ignoreFile = directory + Constants.mockingbirdIgnoreFileName
-    guard ignoreFile.isFile else {
-      return (matches(parentShouldInclude, parentGlobs), allParentGlobs)
-    }
-    guard let globs = try? ignoreFile.read(.utf8).components(separatedBy: "\n")
-      .filter({ line -> Bool in
-        let stripped = line.trimmingCharacters(in: .whitespaces)
-        return !stripped.isEmpty && !stripped.hasPrefix(Constants.commentPrefix)
-      })
-      .map({ rawLine -> Glob in
-        let isNegated = rawLine.hasPrefix("!")
-        
-        // Handle filenames that start with an escaped `!` or `#`.
-        let line: String
-        if rawLine.hasPrefix(Constants.escapingToken + Constants.negationPrefix)
-          || rawLine.hasPrefix(Constants.escapingToken + Constants.commentPrefix) {
-          line = String(rawLine.dropFirst())
-        } else {
-          line = rawLine
-        }
-        
-        guard !line.hasPrefix("/") else {
-          return Glob(pattern: line, isNegated: isNegated, root: directory)
-        }
-        
-        let pattern = !isNegated ? line : String(line.dropFirst(Constants.negationPrefix.count))
-        return Glob(pattern: pattern, isNegated: isNegated, root: directory)
-      })
-    else {
-      logWarning("Unable to read \(Constants.mockingbirdIgnoreFileName.singleQuoted) at \(ignoreFile.absolute())")
-      return (!matches(parentShouldInclude, parentGlobs), allParentGlobs)
-    }
-    
-    let allGlobs = allParentGlobs + globs
-    return (matches(parentShouldInclude, allGlobs), allGlobs)
   }
 }

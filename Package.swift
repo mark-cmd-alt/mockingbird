@@ -56,9 +56,6 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     dependencies: [
       .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
       .package(url: "https://github.com/apple/swift-crypto.git", .exact("2.0.4")),
-      .package(name: "SwiftSyntax",
-               url: "https://github.com/apple/swift-syntax.git",
-               .branch("swift-5.5.2-RELEASE")),
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.31.1")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
@@ -85,7 +82,6 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
           .product(name: "Crypto", package: "swift-crypto"),
           .product(name: "SourceKittenFramework", package: "SourceKitten"),
           "MockingbirdCommon",
-          "SwiftSyntax",
           "XcodeProj",
         ]),
       .target(

@@ -14,7 +14,6 @@
 		281B6246251DC7220084EBED /* MockingbirdShadowedTestsHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281B6226251DC5AD0084EBED /* MockingbirdShadowedTestsHost.framework */; };
 		281B6286251DC7FC0084EBED /* ModuleNameShadowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */; };
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
-		2823627729B6C75300F7D1BF /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */; };
 		2824DA56277E9DB8007005CD /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2824DA55277E9DB8007005CD /* PathKit */; };
 		2838FD2127756314007A1CB4 /* Path+Abbreviate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */; };
 		284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */; };
@@ -116,7 +115,6 @@
 		287C4F6426A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6326A3D21D00A7E0D9 /* MonotonicIncreasingIndex.swift */; };
 		287C4F6626A3E00800A7E0D9 /* NonEscapingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6526A3E00800A7E0D9 /* NonEscapingType.swift */; };
 		287C4F6C26A4AAA900A7E0D9 /* InvocationRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287C4F6B26A4AAA900A7E0D9 /* InvocationRecorder.swift */; };
-		287F852225194E16007D135D /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852125194E16007D135D /* SwiftSyntax */; };
 		287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852425194EF5007D135D /* SourceKittenFramework */; };
 		287F852825194F2A007D135D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852725194F2A007D135D /* ZIPFoundation */; };
 		287F852E25195011007D135D /* XcodeProj in Frameworks */ = {isa = PBXBuildFile; productRef = 287F852D25195011007D135D /* XcodeProj */; };
@@ -200,7 +198,6 @@
 		28E2A598277E8F58002975B3 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E93277D315F00DE525A /* Configure.swift */; };
 		28E2A599277E8F59002975B3 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E96277D554000DE525A /* Test.swift */; };
 		28E2A59A277E8F5D002975B3 /* TestExampleProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8D832779452800DE525A /* TestExampleProject.swift */; };
-		28E7F5002A835AA400B39556 /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = 28E7F4FF2A835AA400B39556 /* SwiftSyntaxParser */; };
 		28FB7EC02789C14000125FDA /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803D96827781A4D00651C60 /* String+Regex.swift */; };
 		28FB7EC12789C14000125FDA /* String+ControlCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */; };
 		28FB7EC22789C14000125FDA /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_131 /* Version.swift */; };
@@ -538,7 +535,6 @@
 		281B62CF251DCAB90084EBED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockingbirdShadowedTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdShadowedTestsHostMocks.generated.swift; sourceTree = "<group>"; };
 		2820731B277E8FF800BAFB97 /* buildAndRun.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildAndRun.sh; sourceTree = "<group>"; };
-		2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		2824DA54277E9CC6007005CD /* ExecutableBase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ExecutableBase.xcconfig; sourceTree = "<group>"; };
 		2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Abbreviate.swift"; sourceTree = "<group>"; };
 		284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominalTypeDefinitionTemplate.swift; sourceTree = "<group>"; };
@@ -612,8 +608,6 @@
 		285C8E8B277C670300DE525A /* XcodeSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeSelect.swift; sourceTree = "<group>"; };
 		285C8E8D277C677A00DE525A /* InstallNameTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallNameTool.swift; sourceTree = "<group>"; };
 		285C8E8F277C71F800DE525A /* PlistBuddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistBuddy.swift; sourceTree = "<group>"; };
-		285C8E91277C76DC00DE525A /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		285C8E92277C76DC00DE525A /* update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sh; sourceTree = "<group>"; };
 		285C8E93277D315F00DE525A /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		285C8E95277D444B00DE525A /* buildAndRun.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildAndRun.sh; sourceTree = "<group>"; };
 		285C8E96277D554000DE525A /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
@@ -1063,7 +1057,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				2823627729B6C75300F7D1BF /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */,
 				285C8E012779EB0E00DE525A /* MockingbirdCommon.framework in Frameworks */,
 				287F85322519659B007D135D /* MockingbirdGenerator.framework in Frameworks */,
 				28874F8B26BF12DD00097529 /* ArgumentParser in Frameworks */,
@@ -1082,12 +1075,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				28E7F5002A835AA400B39556 /* SwiftSyntaxParser in Frameworks */,
 				285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */,
 				288678EE279C9957004FFB3D /* Crypto in Frameworks */,
 				287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */,
 				287F852E25195011007D135D /* XcodeProj in Frameworks */,
-				287F852225194E16007D135D /* SwiftSyntax in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,16 +1098,6 @@
 				281B61F1251DBBDE0084EBED /* ModuleNameShadowing.swift */,
 			);
 			path = Shadowed;
-			sourceTree = "<group>";
-		};
-		2824DA53277E9137007005CD /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				285C8E91277C76DC00DE525A /* LICENSE.txt */,
-				2823627629B6C74A00F7D1BF /* lib_InternalSwiftSyntaxParser.dylib */,
-				285C8E92277C76DC00DE525A /* update.sh */,
-			);
-			path = Libraries;
 			sourceTree = "<group>";
 		};
 		284C3B4126AACCF600F076E2 /* Primitives */ = {
@@ -1782,14 +1763,6 @@
 			path = Framework;
 			sourceTree = "<group>";
 		};
-		OBJ_26 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2824DA53277E9137007005CD /* Libraries */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		OBJ_267 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -2038,7 +2011,6 @@
 				28C2EE44277196CB003CD0D5 /* Arguments */,
 				OBJ_12 /* Commands */,
 				28C2EE4527719737003CD0D5 /* Handlers */,
-				OBJ_26 /* Resources */,
 				D36A3DC924922D2D007964DC /* Utilities */,
 			);
 			path = MockingbirdCli;
@@ -2284,11 +2256,9 @@
 			);
 			name = MockingbirdGenerator;
 			packageProductDependencies = (
-				287F852125194E16007D135D /* SwiftSyntax */,
 				287F852425194EF5007D135D /* SourceKittenFramework */,
 				287F852D25195011007D135D /* XcodeProj */,
 				288678ED279C9957004FFB3D /* Crypto */,
-				28E7F4FF2A835AA400B39556 /* SwiftSyntaxParser */,
 			);
 			productName = MockingbirdGenerator;
 			productReference = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */;
@@ -2386,7 +2356,6 @@
 			);
 			mainGroup = OBJ_5;
 			packageReferences = (
-				287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */,
 				287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */,
 				287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */,
@@ -3708,14 +3677,6 @@
 				version = 1.0.1;
 			};
 		};
-		287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-syntax.git";
-			requirement = {
-				kind = exactVersion;
-				version = 508.0.0;
-			};
-		};
 		287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/SourceKitten.git";
@@ -3790,11 +3751,6 @@
 			package = 285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */;
 			productName = PathKit;
 		};
-		287F852125194E16007D135D /* SwiftSyntax */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
-			productName = SwiftSyntax;
-		};
 		287F852425194EF5007D135D /* SourceKittenFramework */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */;
@@ -3829,11 +3785,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 28E2A56D277E8F43002975B3 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
-		};
-		28E7F4FF2A835AA400B39556 /* SwiftSyntaxParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
-			productName = SwiftSyntaxParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

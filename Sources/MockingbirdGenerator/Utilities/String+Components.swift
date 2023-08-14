@@ -86,4 +86,13 @@ public extension String {
                   excluding groups: [Character: Character]) -> [Substring] {
     return self[...].components(separatedBy: delimiters, excluding: groups)
   }
+  
+  /// Remove the specified character groups from the string.
+  ///
+  /// - Parameters:
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: A new string without the character groups.
+  func removeGroups(_ groups: [Character: Character]) -> String {
+    return self[...].removeGroups(groups)
+  }
 }

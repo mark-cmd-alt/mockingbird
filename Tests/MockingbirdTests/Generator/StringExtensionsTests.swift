@@ -180,4 +180,11 @@ class StringExtensionsTests: XCTestCase {
                                                   excluding: ["(": ")", "<": ">"])
     XCTAssertEqual(actual, ["abc", "(d,e.f)", "<g.h,i>"])
   }
+  
+  // MARK: - Remove groups
+  
+  func testStringExtensions_removeGroups_excludesCharacterGroups() {
+    let actual = "abc(def)ghi<jkl>mno".removeGroups(["(": ")", "<": ">"])
+    XCTAssertEqual(actual, "abcghimno")
+  }
 }

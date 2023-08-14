@@ -142,4 +142,27 @@ public extension Substring {
     components.append(currentComponent)
     return components
   }
+  
+  /// Remove the specified character groups from the string.
+  ///
+  /// - Parameters:
+  ///   - groups: A map containing start group characters to end group characters.
+  /// - Returns: A new string without the character groups.
+  func removeGroups(_ groups: [Character: Character]) -> String {
+    var currentGroups = [Character]()
+    var strippedString = ""
+    for scalarValue in utf8 {
+      let character = Character(UnicodeScalar(scalarValue))
+      if groups[character] != nil {
+        currentGroups.append(character)
+      }
+      if currentGroups.isEmpty {
+        strippedString.append(character)
+      }
+      if let groupEnd = currentGroups.last, groups[groupEnd] == character {
+        currentGroups.removeLast()
+      }
+    }
+    return strippedString
+  }
 }

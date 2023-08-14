@@ -228,7 +228,6 @@
 		D3B3D4C6248CC15E00FEEDA0 /* StackTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */; };
 		D3B3D4C8248D652500FEEDA0 /* Generator+Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3D4C7248D652500FEEDA0 /* Generator+Pipeline.swift */; };
 		D3B3D4CA248D77F300FEEDA0 /* FindMockedTypesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3D4C9248D77F300FEEDA0 /* FindMockedTypesOperation.swift */; };
-		D3B410CA248DA35B008913A8 /* TestFileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B410C9248DA35B008913A8 /* TestFileParser.swift */; };
 		D3B410D024904CEE008913A8 /* MockingbirdTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */; };
 		D3DC37952492140D001E02A5 /* Generator+PruningPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC37942492140D001E02A5 /* Generator+PruningPipeline.swift */; };
 		D3E6F67424838182000D1971 /* ChainedStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */; };
@@ -766,7 +765,6 @@
 		D3B3D4C5248CC15E00FEEDA0 /* StackTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTrace.swift; sourceTree = "<group>"; };
 		D3B3D4C7248D652500FEEDA0 /* Generator+Pipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generator+Pipeline.swift"; sourceTree = "<group>"; };
 		D3B3D4C9248D77F300FEEDA0 /* FindMockedTypesOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMockedTypesOperation.swift; sourceTree = "<group>"; };
-		D3B410C9248DA35B008913A8 /* TestFileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileParser.swift; sourceTree = "<group>"; };
 		D3DC37942492140D001E02A5 /* Generator+PruningPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generator+PruningPipeline.swift"; sourceTree = "<group>"; };
 		D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedStubbingTests.swift; sourceTree = "<group>"; };
 		D3E6F67524844999000D1971 /* ImplementationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationProvider.swift; sourceTree = "<group>"; };
@@ -2083,7 +2081,6 @@
 				OBJ_104 /* ProcessStructuresOperation.swift */,
 				OBJ_105 /* ProcessTypesOperation.swift */,
 				28049A58279CD1FE0022F8DB /* Runnable.swift */,
-				D3B410C9248DA35B008913A8 /* TestFileParser.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -2837,7 +2834,6 @@
 				OBJ_921 /* ParsedFile.swift in Sources */,
 				28A1F3B426AC85C8002F282D /* IfStatementTemplate.swift in Sources */,
 				288678EC279C98F8004FFB3D /* Data+SHA1.swift in Sources */,
-				D3B410CA248DA35B008913A8 /* TestFileParser.swift in Sources */,
 				OBJ_922 /* Single.swift in Sources */,
 				D3643B6C247B78A5002DF069 /* Function.swift in Sources */,
 				OBJ_923 /* Tuple.swift in Sources */,

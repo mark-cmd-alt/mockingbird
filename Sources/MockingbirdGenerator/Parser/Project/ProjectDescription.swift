@@ -97,7 +97,7 @@ public struct DescribedTarget: Target {
         return nil
       }
       let target = DescribedTarget(from: dependency,
-                                   descriptions: descriptions,
+                                   descriptions: [:], // Only actualize direct dependencies.
                                    processedTargets: attributedProcessedTargets)
       return DescribedTargetDependency(target: target)
     })

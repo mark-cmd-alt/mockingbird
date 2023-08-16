@@ -66,50 +66,38 @@ public class ExtractSourcesOperation<T: Target>: ExtractSourcesAbstractOperation
           supportSourcePaths = []
         }
         result.supportPaths = supportSourcePaths
-      
-        result.dependencyPaths =
-          Set(allTargets(for: target).flatMap({ sourceFilePaths(for: $0) }))
-            .union(supportSourcePaths)
-            .subtracting(result.targetPaths)
+        
+        let uniqueDependencies = Set(target.dependencies.compactMap({ $0.target as? T }))
+        let dependencyPaths = Set(uniqueDependencies.flatMap({ sourceFilePaths(for: $0) }))
+        result.dependencyPaths = dependencyPaths
+          .union(supportSourcePaths)
+          .subtracting(result.targetPaths)
+        
+        let productModuleName = resolveProductModuleName(for: target)
+        result.moduleDependencies[productModuleName] = findDirectModuleDependencies(of: target)
       }
     }
     log("Found \(result.targetPaths.count) source file\(result.targetPaths.count != 1 ? "s" : "") and \(result.dependencyPaths.count) dependency source file\(result.dependencyPaths.count != 1 ? "s" : "") for target \(target.name.singleQuoted)")
   }
   
   /// Returns the compiled source file paths for a single given target.
-  private var memoizedSourceFilePaths = [String: Set<SourcePath>]()
   private func sourceFilePaths(for target: T) -> Set<SourcePath> {
-    if let memoized = memoizedSourceFilePaths[target.name] { return memoized }
-    
     let moduleName = resolveProductModuleName(for: target)
     let paths = target.findSourceFilePaths(sourceRoot: sourceRoot)
       .filter({ !$0.string.hasSuffix(".generated.swift") })
       .map({ SourcePath(path: $0, moduleName: moduleName) })
     
     let includedPaths = Set(paths)
-    memoizedSourceFilePaths[target.name] = includedPaths
     log("Got \(includedPaths.count) source file path\(includedPaths.count == 1 ? "" : "s") for " +
         "target \(target.name)")
     return includedPaths
   }
   
-  /// Recursively find all targets and its dependency targets.
-  private var memoizedTargets = [String: Set<T>]()
-  private func allTargets(for target: T) -> Set<T> {
-    if let memoized = memoizedTargets[target.name] { return memoized }
-    
-    let targets = Set([target]).union(
-      target.dependencies
-        .compactMap({ $0.target as? T })
-        .flatMap({ allTargets(for: $0) }))
-    let productModuleName = resolveProductModuleName(for: target)
-    
-    result.moduleDependencies[productModuleName] = Set(targets.map({
-      resolveProductModuleName(for: $0)
-    }))
-    memoizedTargets[target.name] = targets
-    
-    return targets
+  private func findDirectModuleDependencies(of target: T) -> Set<String> {
+    let dependencyModuleNames = target.dependencies
+      .compactMap({ $0.target as? T })
+      .map({ resolveProductModuleName(for: $0) })
+    return Set(dependencyModuleNames)
   }
   
   /// Recursively find support module sources, taking each directory as the module name. Nested

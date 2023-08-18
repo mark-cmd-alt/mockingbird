@@ -447,4 +447,21 @@ class DeclaredTypeTests: XCTestCase {
     XCTAssertEqual(String(reflecting: actual), "Parameter(label parameter: DeclaredType(Single(String)))")
     XCTAssertEqual(actual.defaultValue, "\"Hello\"")
   }
+  
+  // MARK: - Existentials
+  
+  func testExistential_parsesUnwrappedAny() {
+    let actual = DeclaredType(from: "any Foobar")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(any Foobar))")
+  }
+
+  func testExistential_parsesWrappedAny() {
+    let actual = DeclaredType(from: "(any Foobar)")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(any Foobar))")
+  }
+  
+  func testExistential_parsesOptionalAny() {
+    let actual = DeclaredType(from: "(any Foobar)?")
+    XCTAssertEqual(String(reflecting: actual), "DeclaredType(Single(any Foobar)?)")
+  }
 }

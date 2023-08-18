@@ -16,6 +16,7 @@
 		281B62FF251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281B62FE251DCCFC0084EBED /* MockingbirdShadowedTestsHostMocks.generated.swift */; };
 		2824DA56277E9DB8007005CD /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2824DA55277E9DB8007005CD /* PathKit */; };
 		2838FD2127756314007A1CB4 /* Path+Abbreviate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */; };
+		283BD7E92A8FFAC200C3222A /* ExistentialAny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283BD7E82A8FFAC200C3222A /* ExistentialAny.swift */; };
 		284C3B4026AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */; };
 		284C3B4326AACD5700F076E2 /* BlockTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4226AACD5700F076E2 /* BlockTemplate.swift */; };
 		284C3B4826AAD05C00F076E2 /* GenericStaticMockContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */; };
@@ -517,6 +518,7 @@
 		2820731B277E8FF800BAFB97 /* buildAndRun.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildAndRun.sh; sourceTree = "<group>"; };
 		2824DA54277E9CC6007005CD /* ExecutableBase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ExecutableBase.xcconfig; sourceTree = "<group>"; };
 		2838FD2027756314007A1CB4 /* Path+Abbreviate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Abbreviate.swift"; sourceTree = "<group>"; };
+		283BD7E82A8FFAC200C3222A /* ExistentialAny.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistentialAny.swift; sourceTree = "<group>"; };
 		284C3B3F26AAC9DA00F076E2 /* NominalTypeDefinitionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominalTypeDefinitionTemplate.swift; sourceTree = "<group>"; };
 		284C3B4226AACD5700F076E2 /* BlockTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTemplate.swift; sourceTree = "<group>"; };
 		284C3B4726AAD05C00F076E2 /* GenericStaticMockContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericStaticMockContext.swift; sourceTree = "<group>"; };
@@ -1501,6 +1503,7 @@
 				OBJ_154 /* DefaultArgumentValues.swift */,
 				D39350CF246619DC00FF52E2 /* DuplicateProtocolMembers.swift */,
 				OBJ_155 /* EmptyTypes.swift */,
+				283BD7E82A8FFAC200C3222A /* ExistentialAny.swift */,
 				OBJ_157 /* Extensions.swift */,
 				OBJ_158 /* ExternalModuleClassScopedTypes.swift */,
 				OBJ_159 /* ExternalModuleImplicitlyImportedTypes.swift */,
@@ -2459,6 +2462,7 @@
 				OBJ_1128 /* ClosureParameters.swift in Sources */,
 				OBJ_1129 /* Collections.swift in Sources */,
 				OBJ_1130 /* CompilationDirectives.swift in Sources */,
+				283BD7E92A8FFAC200C3222A /* ExistentialAny.swift in Sources */,
 				OBJ_1131 /* CompoundTypes.swift in Sources */,
 				OBJ_1132 /* DeclarationAttributes.swift in Sources */,
 				OBJ_1133 /* DefaultArgumentValues.swift in Sources */,

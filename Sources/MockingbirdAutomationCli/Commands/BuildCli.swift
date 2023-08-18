@@ -24,7 +24,7 @@ extension Build {
     
     enum Platform: String, ExpressibleByArgument {
       case macOS = "macos"
-      case centOS8 = "centos8"
+      case centOS = "centos"
       // TODO: Support other Linux distros
     }
     
@@ -44,9 +44,9 @@ extension Build {
       try archive(artifacts: [("", binary)], destination: Path(location))
     }
     
-    private func archiveCentOS8(_ binary: Path) throws {
+    private func archiveCentOS(_ binary: Path) throws {
       guard let location = globalOptions.archiveLocation else { return }
-      let libPaths = SharedLibraries.centOS8.map({ Path($0) })
+      let libPaths = SharedLibraries.centOS.map({ Path($0) })
       try archive(artifacts: [("", binary)] + libPaths.map({ ("", $0) }),
                   destination: Path(location))
     }
@@ -62,15 +62,15 @@ extension Build {
       case .macOS:
         try codesign(cliPath)
         try archiveMacOS(cliPath)
-      case .centOS8:
-        try archiveCentOS8(cliPath)
+      case .centOS:
+        try archiveCentOS(cliPath)
       }
     }
   }
 }
 
 private enum SharedLibraries {
-  static let centOS8 = [
+  static let centOS = [
     "/usr/lib/libsourcekitdInProc.so",
     "/usr/lib/swift/linux/libBlocksRuntime.so",
     "/usr/lib/swift/linux/libFoundation.so",
@@ -84,5 +84,7 @@ private enum SharedLibraries {
     "/usr/lib/swift/linux/libswiftDispatch.so",
     "/usr/lib/swift/linux/libswiftGlibc.so",
     "/usr/lib/swift/linux/libswift_Concurrency.so",
+    "/usr/lib/swift/linux/libswift_RegexParser.so",
+    "/usr/lib/swift/linux/libswift_StringProcessing.so",
   ]
 }

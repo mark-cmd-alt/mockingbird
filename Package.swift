@@ -59,7 +59,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.31.1")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
-      .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
+      .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.19")),
     ],
     targets: [
       .target(name: "MockingbirdCommon"),

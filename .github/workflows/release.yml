@@ -40,17 +40,17 @@ jobs:
         openssl sha512 .build/mockingbird/artifacts/Mockingbird.xcframework.zip
         openssl sha512 .build/mockingbird/artifacts/MockingbirdSupport.zip
     - name: Upload CLI
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Mockingbird.zip
         path: .build/mockingbird/artifacts/Mockingbird.zip
     - name: Upload Framework
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Mockingbird.xcframework.zip
         path: .build/mockingbird/artifacts/Mockingbird.xcframework.zip
     - name: Upload Supporting Sources
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: MockingbirdSupport.zip
         path: .build/mockingbird/artifacts/MockingbirdSupport.zip
@@ -73,7 +73,7 @@ jobs:
       run: |
         openssl sha512 .build/mockingbird/artifacts/Mockingbird-centos.zip
     - name: Upload CLI
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Mockingbird-centos.zip
         path: .build/mockingbird/artifacts/Mockingbird-centos.zip
@@ -116,7 +116,7 @@ jobs:
           --renderer swift-docc-render/dist \
           --archive .build/mockingbird/artifacts/Mockingbird.doccarchive.zip
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Mockingbird.doccarchive.zip
         path: .build/mockingbird/artifacts/Mockingbird.doccarchive.zip

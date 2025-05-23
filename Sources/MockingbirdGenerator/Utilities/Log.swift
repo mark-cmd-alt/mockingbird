@@ -67,7 +67,7 @@ public func flushLogs() {
 }
 
 /// Log a message to `stdout` or `stderr` depending on the message severity.
-public func log(_ message: @escaping @autoclosure () -> String,
+public func log(_ message: String,
                 type: LogType = .debug,
                 diagnostic: DiagnosticType? = nil,
                 output: UnsafeMutablePointer<FILE>? = nil,
@@ -93,7 +93,7 @@ public func log(_ message: @escaping @autoclosure () -> String,
       ? type.formattedDescription : type.description
     let typePrefix = typeDescription + (typeDescription.isEmpty ? "" : " ")
     
-    let logMessage = locationPrefix + typePrefix + message() + "\n"
+    let logMessage = locationPrefix + typePrefix + message + "\n"
     
     fputs(logMessage, output)
     fflush(output) // fputs doesn't seem to auto-flush on line breaks.
@@ -101,18 +101,18 @@ public func log(_ message: @escaping @autoclosure () -> String,
 }
 
 /// Log an informational message.
-public func logInfo(_ message: @escaping @autoclosure () -> String,
+public func logInfo(_ message: String,
                     output: UnsafeMutablePointer<FILE>? = nil) {
-  log(message(), type: .info, output: output)
+  log(message, type: .info, output: output)
 }
 
 /// Log a warning message.
-public func logWarning(_ message: @escaping @autoclosure () -> String,
+public func logWarning(_ message: String,
                        diagnostic: DiagnosticType? = nil,
                        output: UnsafeMutablePointer<FILE>? = nil,
                        filePath: Path? = nil,
                        line: @escaping @autoclosure () -> Int? = nil) {
-  log(message(),
+  log(message,
       type: .warn,
       diagnostic: diagnostic,
       output: output,

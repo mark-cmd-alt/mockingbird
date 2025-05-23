@@ -63,7 +63,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set Up Environment
-      run: yum install -y zip
+      run: apt-get update && apt get-install -y zip
     - name: Build CLI
       run: |
         Sources/MockingbirdAutomationCli/buildAndRun.sh build cli \

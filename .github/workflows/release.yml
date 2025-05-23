@@ -40,17 +40,17 @@ jobs:
         openssl sha512 .build/mockingbird/artifacts/Mockingbird.xcframework.zip
         openssl sha512 .build/mockingbird/artifacts/MockingbirdSupport.zip
     - name: Upload CLI
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Mockingbird.zip
         path: .build/mockingbird/artifacts/Mockingbird.zip
     - name: Upload Framework
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Mockingbird.xcframework.zip
         path: .build/mockingbird/artifacts/Mockingbird.xcframework.zip
     - name: Upload Supporting Sources
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: MockingbirdSupport.zip
         path: .build/mockingbird/artifacts/MockingbirdSupport.zip
@@ -61,7 +61,7 @@ jobs:
     container:
       image: swift:centos7
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set Up Environment
       run: yum install -y zip
     - name: Build CLI
@@ -73,7 +73,7 @@ jobs:
       run: |
         openssl sha512 .build/mockingbird/artifacts/Mockingbird-centos.zip
     - name: Upload CLI
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Mockingbird-centos.zip
         path: .build/mockingbird/artifacts/Mockingbird-centos.zip
@@ -82,12 +82,12 @@ jobs:
     name: Build Docs
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set Up Project
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
 
     - name: Checkout Swift-DocC
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: apple/swift-docc
         path: swift-docc
@@ -96,7 +96,7 @@ jobs:
       run: swift build --configuration release
 
     - name: Checkout Swift-DocC-Render
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: apple/swift-docc-render
         path: swift-docc-render
@@ -116,7 +116,7 @@ jobs:
           --renderer swift-docc-render/dist \
           --archive .build/mockingbird/artifacts/Mockingbird.doccarchive.zip
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Mockingbird.doccarchive.zip
         path: .build/mockingbird/artifacts/Mockingbird.doccarchive.zip

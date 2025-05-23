@@ -12,15 +12,15 @@ struct Build: ParsableCommand {
       BuildDocumentation.self,
       BuildSupportingSources.self,
     ])
-  
+
   struct Options: ParsableArguments {
     @Option(name: .customLong("archive"), help: "File path to store archived built products.")
     var archiveLocation: String?
   }
-  
+
   @OptionGroup()
   var globalOptions: Options
-  
+
   static func archive(artifacts: [(location: String, path: Path)],
                       destination: Path,
                       includeLicense: Bool = true) throws {
@@ -32,13 +32,18 @@ struct Build: ParsableCommand {
       logError("Archive destination is not a ZIP file")
       return
     }
-    logInfo("Creating archive at \(destination.abbreviate())")
-      
+
+    for artifact in artifacts {
+      logInfo("artifact. location: \(artifact.location), path: \(artifact.path)")
+    }
+
+    logInfo("Creating archive at \(destination)")
+
     let stagingPath = Path("./.build/mockingbird/intermediates")
       + destination.lastComponentWithoutExtension
     try? stagingPath.delete()
     try stagingPath.mkpath()
-    
+
     var items = artifacts
     if includeLicense { items.append(("", Path("./LICENSE.md"))) }
     try items.forEach({ artifact in
@@ -46,7 +51,7 @@ struct Build: ParsableCommand {
       try destination.parent().mkpath()
       try artifact.path.followRecursively().copy(destination)
     })
-    
+
     try? destination.delete()
     try destination.parent().mkpath()
     try Zip.deflate(input: items.count == 1 ? items[0].path : stagingPath,

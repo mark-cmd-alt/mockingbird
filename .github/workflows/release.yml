@@ -59,11 +59,11 @@ jobs:
     name: Build CentOS Artifacts
     runs-on: ubuntu-latest  # GitHub Actions only supports Ubuntu as a Linux base image
     container:
-      image: swift:5.10.1
+      image: swift:5.10.1-rhel-ubi9
     steps:
     - uses: actions/checkout@v4
     - name: Set Up Environment
-      run: apt-get update && apt-get install -y zip
+      run: yum install -y zip
     - name: Build CLI
       run: |
         Sources/MockingbirdAutomationCli/buildAndRun.sh build cli \

@@ -59,7 +59,7 @@ jobs:
     name: Build CentOS Artifacts
     runs-on: ubuntu-latest  # GitHub Actions only supports Ubuntu as a Linux base image
     container:
-      image: swift:5.10.1-rhel-ubi9
+      image: swift:6.1.2-rhel-ubi9
     steps:
     - uses: actions/checkout@v4
     - name: Set Up Environment

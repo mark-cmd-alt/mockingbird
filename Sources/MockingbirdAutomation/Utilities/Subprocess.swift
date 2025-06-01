@@ -76,7 +76,7 @@ public struct Subprocess: CustomStringConvertible {
     }
     sigintSource.resume()
 
-    // process.waitUntilExit()
+    process.waitUntilExit()
     if propagateError && process.terminationStatus != 0 {
       throw Error.terminated(exitStatus: process.terminationStatus)
     }

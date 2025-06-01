@@ -10,19 +10,19 @@ import ZIPFoundation
 
 enum AssetBundleType: String, ExpressibleByArgument, CustomStringConvertible {
   case starterPack = "starter-pack"
-  
+
   var description: String {
     switch self {
     case .starterPack: return "Starter supporting source files."
     }
   }
-  
+
   var fileName: String {
     switch self {
     case .starterPack: return "MockingbirdSupport.zip"
     }
   }
-  
+
   func getURL(template: String) -> URL? {
     return URL(string: template
       .replacingOccurrences(of: "<VERSION>", with: mockingbirdVersion.shortString)
@@ -37,7 +37,7 @@ struct Downloader {
     let urlTemplate: String
     let overwrite: Bool
     let urlSession: URLSession
-    
+
     init(assetBundleType: AssetBundleType,
          outputPath: Path,
          urlTemplate: String,
@@ -50,12 +50,12 @@ struct Downloader {
       self.urlSession = urlSession
     }
   }
-  
+
   enum Error: LocalizedError {
     case validationFailed(_ message: String)
     case downloadFailed(_ message: String)
     case corruptBundle(_ message: String)
-    
+
     var errorDescription: String? {
       switch self {
       case .validationFailed(let message),
@@ -65,7 +65,7 @@ struct Downloader {
       }
     }
   }
-  
+
   enum Constants {
     static let excludedAssetRootDirectories: Set<String> = [
       "__MACOSX",
@@ -74,28 +74,26 @@ struct Downloader {
       ".DS_Store",
     ]
   }
-  
+
   let config: Configuration
-  
+
   init(config: Configuration) {
     self.config = config
   }
-  
+
   func download() throws {
     guard let downloadURL = config.assetBundleType.getURL(template: config.urlTemplate) else {
       throw Error.validationFailed("Invalid URL template \(config.urlTemplate)")
     }
     switch downloadAssetBundle(at: downloadURL) {
     case .success(let fileURL):
-      guard let archive = Archive(url: fileURL, accessMode: .read) else {
-        throw Error.corruptBundle("Downloaded asset bundle is corrupt")
-      }
+      let archive = try Archive(url: fileURL, accessMode: .read)
       try extractAssetBundle(archive, to: config.outputPath)
     case .failure(let error):
       throw error
     }
   }
-  
+
   private func downloadAssetBundle(at url: URL) -> Result<URL, Error> {
     let semaphore = DispatchSemaphore(value: 0)
     var result: Result<URL, Error>?
@@ -112,7 +110,7 @@ struct Downloader {
     semaphore.wait()
     return result!
   }
-  
+
   private func extractAssetBundle(_ archive: Archive, to path: Path) throws {
     let basePath = path.absolute()
     for entry in archive {
@@ -128,7 +126,7 @@ struct Downloader {
         log("Skipping asset bundle entry due to excluded file name at \(entryPath)")
         continue
       }
-      
+
       let destinationPath = basePath + entryPath
       if destinationPath.exists {
         if !config.overwrite {
@@ -138,7 +136,7 @@ struct Downloader {
           log("Overwriting existing contents at \(entryPath)")
         }
       }
-      
+
       _ = try archive.extract(entry, to: destinationPath.url)
     }
   }

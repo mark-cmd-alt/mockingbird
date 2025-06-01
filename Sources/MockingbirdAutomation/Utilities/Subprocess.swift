@@ -11,19 +11,19 @@ public struct Subprocess: CustomStringConvertible {
     }
   }
   public let process: Process
-  
+
   public let stdout = Pipe()
   public let stdin = Pipe()
   public let stderr = Pipe()
-  
+
   public var workingDirectory: Path {
     Path(process.currentDirectoryURL?.path ?? FileManager.default.currentDirectoryPath)
   }
-  
+
   public var description: String {
     "\(workingDirectory.abbreviate().string) $ \(process.arguments?.joined(separator: " ") ?? "")"
   }
-  
+
   public init(_ command: String,
               _ arguments: [String] = [],
               environment: [String: String] = ProcessInfo.processInfo.environment,
@@ -39,14 +39,14 @@ public struct Subprocess: CustomStringConvertible {
     process.standardError = stderr
     self.process = process
   }
-  
+
   @discardableResult
   public func run(silent: Bool = false,
                   propagateError: Bool = true,
                   stdoutHandler: ((Data) -> Void)? = nil,
                   stderrHandler: ((Data) -> Void)? = nil) throws -> Self {
     logInfo(String(describing: self))
-    
+
     let readabilityHandler = {
       (pipe: FileHandle, handler: ((Data) -> Void)?, output: UnsafeMutablePointer<FILE>) in
       let data = pipe.availableData
@@ -60,9 +60,9 @@ public struct Subprocess: CustomStringConvertible {
     stderr.fileHandleForReading.readabilityHandler = { pipe in
       readabilityHandler(pipe, stderrHandler, Foundation.stderr)
     }
-    
+
     try process.run()
-    
+
     // Forcefully terminate the subprocess when receiving a SIGINT.
     signal(SIGINT, SIG_IGN)
     let sigintSource = DispatchSource.makeSignalSource(signal: SIGINT, queue: .main)
@@ -76,13 +76,13 @@ public struct Subprocess: CustomStringConvertible {
     }
     sigintSource.resume()
 
-    process.waitUntilExit()
+    // process.waitUntilExit()
     if propagateError && process.terminationStatus != 0 {
       throw Error.terminated(exitStatus: process.terminationStatus)
     }
     return self
   }
-  
+
   public func runWithDataOutput() throws -> (stdout: Data, stderr: Data) {
     var stdoutBuffer = Data()
     var stderrBuffer = Data()
@@ -90,13 +90,13 @@ public struct Subprocess: CustomStringConvertible {
             stderrHandler: { stderrBuffer.append($0) })
     return (stdoutBuffer, stderrBuffer)
   }
-  
+
   public func runWithStringOutput() throws -> (stdout: String, stderr: String) {
     let (stdoutBuffer, stderrBuffer) = try runWithDataOutput()
     return (String(data: stdoutBuffer, encoding: .utf8) ?? "",
             String(data: stderrBuffer, encoding: .utf8) ?? "")
   }
-  
+
   public func runWithExitCode() throws -> Int {
     try run(propagateError: false)
     return Int(process.terminationStatus)

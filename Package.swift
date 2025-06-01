@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.5
 import PackageDescription
 import class Foundation.ProcessInfo
 
@@ -11,7 +11,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v10_10),
+      .macOS(.v12),
       .iOS(.v9),
       .tvOS(.v9),
       .watchOS("7.4"),
@@ -45,7 +45,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v10_15),
+      .macOS(.v12),
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
@@ -54,16 +54,16 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
-      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
+      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.2.1")),
       .package(url: "https://github.com/apple/swift-crypto.git", .exact("2.0.4")),
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
-      .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.31.1")),
+      .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.37.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.19")),
     ],
     targets: [
       .target(name: "MockingbirdCommon"),
-      .target(
+      .executableTarget(
         name: "MockingbirdCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),
@@ -84,7 +84,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
           "MockingbirdCommon",
           "XcodeProj",
         ]),
-      .target(
+      .executableTarget(
         name: "MockingbirdAutomationCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),

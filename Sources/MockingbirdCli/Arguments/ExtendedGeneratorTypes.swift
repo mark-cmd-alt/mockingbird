@@ -1,5 +1,4 @@
 import ArgumentParser
 import MockingbirdGenerator
-
-extension PruningMethod: ExpressibleByArgument {}
-extension DiagnosticType: ExpressibleByArgument {}
+extension PruningMethod: @retroactive ExpressibleByArgument {}
+extension DiagnosticType: @retroactive ExpressibleByArgument {}

@@ -1,4 +1,4 @@
-FROM swift:5.10.1-rhel-ubi9
+FROM swift:6.1.2-rhel-ubi9
 WORKDIR /mockingbird
 COPY . .
 
@@ -6,15 +6,16 @@ COPY . .
 RUN yum install -y zip
 RUN swift --version
 
-# Build automation
-RUN Sources/MockingbirdAutomationCli/buildAndRun.sh
-RUN cp .build/debug/automation /usr/bin
 
-# Build generator
-RUN Sources/MockingbirdCli/buildAndRun.sh
-RUN cp .build/debug/mockingbird /usr/bin
+# # Build automation
+# RUN Sources/MockingbirdAutomationCli/buildAndRun.sh
+# RUN cp .build/debug/automation /usr/bin
 
-# RUN Sources/MockingbirdAutomationCli/buildAndRun.sh build cli --platform centos --archive .build/mockingbird/artifacts/Mockingbird-centos.zip
+# # Build generator
+# RUN Sources/MockingbirdCli/buildAndRun.sh
+# RUN cp .build/debug/mockingbird /usr/bin
+
+RUN Sources/MockingbirdAutomationCli/buildAndRun.sh build cli --platform centos --archive .build/mockingbird/artifacts/Mockingbird-centos.zip
 
 ENTRYPOINT ["mockingbird"]
 CMD ["--help"]

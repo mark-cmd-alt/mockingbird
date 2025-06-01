@@ -86,6 +86,7 @@ private enum SharedLibraries {
     "/usr/lib/swift/linux/libswiftCore.so",
     "/usr/lib/swift/linux/libswiftDispatch.so",
     "/usr/lib/swift/linux/libswiftGlibc.so",
+    "/usr/lib/swift/linux/libswiftSynchronization.so",
     "/usr/lib/swift/linux/libswift_Concurrency.so",
     "/usr/lib/swift/linux/libswift_RegexParser.so",
     "/usr/lib/swift/linux/libswift_StringProcessing.so",

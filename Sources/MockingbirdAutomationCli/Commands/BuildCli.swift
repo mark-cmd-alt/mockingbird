@@ -78,6 +78,7 @@ private enum SharedLibraries {
     "/usr/lib/swift/linux/libFoundationInternationalization.so",
     "/usr/lib/swift/linux/libFoundationNetworking.so",
     "/usr/lib/swift/linux/libFoundationXML.so",
+    "/usr/lib/swift/linux/lib_FoundationICU.so",
     "/usr/lib/swift/linux/libdispatch.so",
     // "/usr/lib/swift/linux/libicudataswift.so.65",
     // "/usr/lib/swift/linux/libicui18nswift.so.65",

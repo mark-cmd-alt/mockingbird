@@ -74,6 +74,8 @@ private enum SharedLibraries {
     "/usr/lib/libsourcekitdInProc.so",
     "/usr/lib/swift/linux/libBlocksRuntime.so",
     "/usr/lib/swift/linux/libFoundation.so",
+    "/usr/lib/swift/linux/libFoundationEssentials.so",
+    "/usr/lib/swift/linux/libFoundationInternationalization.so",
     "/usr/lib/swift/linux/libFoundationNetworking.so",
     "/usr/lib/swift/linux/libFoundationXML.so",
     "/usr/lib/swift/linux/libdispatch.so",

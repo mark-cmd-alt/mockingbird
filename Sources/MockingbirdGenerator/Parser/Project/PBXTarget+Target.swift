@@ -20,7 +20,8 @@ extension PBXTarget: Target {
       let moduleName = try? PBXTarget.resolve(
         BuildSetting("$(PRODUCT_MODULE_NAME:default=$(PRODUCT_NAME:default=$(TARGET_NAME)))"),
         from: getBuildEnvironment(configuration: configuration, environment: environment())
-      )
+      ),
+      moduleName.isEmpty == false
     else {
       let fallbackModuleName = name.escapingForModuleName()
       logWarning("Unable to resolve product module name for target \(name.singleQuoted), falling back to \(fallbackModuleName.singleQuoted)")

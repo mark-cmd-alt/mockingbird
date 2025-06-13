@@ -11,10 +11,10 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v12),
-      .iOS(.v9),
-      .tvOS(.v9),
-      .watchOS("7.4"),
+      .macOS(.v14),
+      .iOS(.v15),
+      .tvOS(.v15),
+      .watchOS(v9),
     ],
     products: [
       .library(name: "Mockingbird", targets: ["Mockingbird", "MockingbirdObjC"]),
@@ -54,11 +54,11 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
-      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.2.1")),
-      .package(url: "https://github.com/apple/swift-crypto.git", .exact("2.0.4")),
+      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.5.1")),
+      .package(url: "https://github.com/apple/swift-crypto.git", .exact("3.12.3")),
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.37.0")),
-      .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.7.1")),
+      .package(url: "https://github.com/tuist/XcodeProj.git", .exact("9.4.2")),
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.19")),
     ],
     targets: [

@@ -2815,7 +2815,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2835,6 +2835,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -2842,6 +2843,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -2853,6 +2855,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -2860,6 +2863,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 			};
 			name = Profile;
 		};
@@ -2880,7 +2885,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2910,7 +2915,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2940,7 +2945,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2970,7 +2975,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3000,7 +3005,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3019,6 +3024,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3026,6 +3032,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3033,6 +3040,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFE2779E4BB00DE525A /* MockingbirdCommon.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -3040,6 +3048,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE648277EAFB50047B0F3 /* MockingbirdAutomationTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3047,6 +3056,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE648277EAFB50047B0F3 /* MockingbirdAutomationTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3054,6 +3064,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE648277EAFB50047B0F3 /* MockingbirdAutomationTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -3061,6 +3072,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE646277EAF5F0047B0F3 /* MockingbirdAutomation.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3068,6 +3080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE646277EAF5F0047B0F3 /* MockingbirdAutomation.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3075,6 +3088,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 286DE646277EAF5F0047B0F3 /* MockingbirdAutomation.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -3082,6 +3096,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomationCli.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3089,6 +3104,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomationCli.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3096,6 +3112,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285C8DFF2779E56C00DE525A /* MockingbirdAutomationCli.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Profile;
 		};
@@ -3103,6 +3120,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 			};
 			name = Debug;
 		};
@@ -3110,6 +3129,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A590245586DD0000E80A /* MockingbirdTests.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
 			};
 			name = Release;
 		};
@@ -3130,7 +3151,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3163,7 +3184,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3220,7 +3241,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3271,7 +3292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -3291,6 +3312,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3302,6 +3324,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3309,6 +3332,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3316,6 +3340,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D372A592245586DD0000E80A /* MockingbirdFramework.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3327,6 +3352,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
 		};
@@ -3338,6 +3364,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/MockingbirdCli/Resources/Libraries",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
 		};
@@ -3356,7 +3383,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3386,7 +3413,7 @@
 					"$(inherited)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3540,7 +3567,7 @@
 			repositoryURL = "https://github.com/jpsim/SourceKitten.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.31.1;
+				version = 0.37.0;
 			};
 		};
 		287F852625194F2A007D135D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -3548,7 +3575,7 @@
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.9.14;
+				version = 0.9.19;
 			};
 		};
 		287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */ = {
@@ -3556,7 +3583,7 @@
 			repositoryURL = "https://github.com/tuist/XcodeProj.git";
 			requirement = {
 				kind = exactVersion;
-				version = 8.7.1;
+				version = 9.4.2;
 			};
 		};
 		288678E9279C981A004FFB3D /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
@@ -3564,7 +3591,7 @@
 			repositoryURL = "https://github.com/apple/swift-crypto.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.0.4;
+				version = 3.12.3;
 			};
 		};
 		28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
@@ -3572,7 +3599,7 @@
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.2;
+				version = 1.5.1;
 			};
 		};
 		28E2A56B277E8F43002975B3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
